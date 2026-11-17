@@ -1,0 +1,14 @@
+# Xcode
+xcuserdata/
+DerivedData/
+*.xcuserstate
+build/
+
+# Local agent checkouts
+.claude/worktrees/
+
+# macOS
+.DS_Store
+
+# Personal code signing (shared defaults live in Signing.xcconfig)
+/Configuration/Local.xcconfig

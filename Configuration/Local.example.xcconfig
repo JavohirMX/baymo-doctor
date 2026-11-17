@@ -1,0 +1,10 @@
+// Copy to Local.xcconfig (ignored by Git) for your Apple team / device installs.
+// Do not commit Local.xcconfig. Do not set Team or Bundle ID in Xcode target settings —
+// those edits land in project.pbxproj and fight other contributors.
+//
+// Find your Team ID in Apple Developer → Membership, or Xcode → Settings → Accounts.
+// DEVELOPMENT_TEAM = YOUR_TEAM_ID
+//
+// Use a unique prefix if your team cannot register the default bundle IDs
+// (shared default is com.baymo in Signing.xcconfig, so the app is com.baymo.doctor).
+// DR_DASH_BUNDLE_ID_PREFIX = com.yourname.baymo

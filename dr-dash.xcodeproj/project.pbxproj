@@ -1,0 +1,604 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		51950F00B8B15C7EAC2611E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71970B9D0608F635B52FA6D9 /* ContentView.swift */; };
+		566E0018FD133BD61B1B9E8E /* dr_dashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE397EFE1DAEDC447F22E70 /* dr_dashTests.swift */; };
+		79A5B831B1552A133D434232 /* dr_dashApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD52895756FE852F8784A46 /* dr_dashApp.swift */; };
+		E458A883DDFAD79616514AE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 664FB768AC66FB1E785EB7D9 /* Assets.xcassets */; };
+		ED9A300C0E42D730567A2AB2 /* dr_dashUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B6646B48E64AA53BA819 /* dr_dashUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		73FE8AFFFEE167011D20D794 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77EFAE21DA4E2E0E4E8F03A0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B71C2576A3427A764A68944;
+			remoteInfo = "dr-dash";
+		};
+		E8B00132E24CF551C6477FC8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 77EFAE21DA4E2E0E4E8F03A0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1B71C2576A3427A764A68944;
+			remoteInfo = "dr-dash";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		4E94B6646B48E64AA53BA819 /* dr_dashUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dr_dashUITests.swift; sourceTree = "<group>"; };
+		523DAA2983E8048E7D2968FC /* dr-dash.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "dr-dash.entitlements"; sourceTree = "<group>"; };
+		5A32B1BE56805710E2C8B678 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		604E7E618B4F17F697F042C9 /* dr-dash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dr-dash.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		664FB768AC66FB1E785EB7D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		66A2AB399F187A53A3277BB1 /* project.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = project.yml; sourceTree = "<group>"; };
+		71970B9D0608F635B52FA6D9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		99C2F85A97D3BDD3BB9FEEFB /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
+		B7C6CBEF9384D5B09A83FF68 /* dr-dashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dr-dashTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7E633CC6413BB29966ED4F8 /* dr-dash-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "dr-dash-Info.plist"; sourceTree = "<group>"; };
+		B865696C469F17EF061A6C2F /* dr-dashUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dr-dashUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CAD52895756FE852F8784A46 /* dr_dashApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dr_dashApp.swift; sourceTree = "<group>"; };
+		D09F4A4E2792BA11BDD337F5 /* Local.example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.example.xcconfig; sourceTree = "<group>"; };
+		DAE397EFE1DAEDC447F22E70 /* dr_dashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dr_dashTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		618F683390F3DDA2772233EC /* dr-dashTests */ = {
+			isa = PBXGroup;
+			children = (
+				DAE397EFE1DAEDC447F22E70 /* dr_dashTests.swift */,
+			);
+			path = "dr-dashTests";
+			sourceTree = "<group>";
+		};
+		65808E9E55658489E0121A7C /* dr-dash */ = {
+			isa = PBXGroup;
+			children = (
+				664FB768AC66FB1E785EB7D9 /* Assets.xcassets */,
+				71970B9D0608F635B52FA6D9 /* ContentView.swift */,
+				CAD52895756FE852F8784A46 /* dr_dashApp.swift */,
+			);
+			path = "dr-dash";
+			sourceTree = "<group>";
+		};
+		BB1331D9E45B4674EEFE1426 /* dr-dashUITests */ = {
+			isa = PBXGroup;
+			children = (
+				4E94B6646B48E64AA53BA819 /* dr_dashUITests.swift */,
+			);
+			path = "dr-dashUITests";
+			sourceTree = "<group>";
+		};
+		DD5D8F8E8897B6566D83A95F /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				B7E633CC6413BB29966ED4F8 /* dr-dash-Info.plist */,
+				523DAA2983E8048E7D2968FC /* dr-dash.entitlements */,
+				D09F4A4E2792BA11BDD337F5 /* Local.example.xcconfig */,
+				99C2F85A97D3BDD3BB9FEEFB /* Signing.xcconfig */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		E6DBD02682E1FDA06BC3E537 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				604E7E618B4F17F697F042C9 /* dr-dash.app */,
+				B7C6CBEF9384D5B09A83FF68 /* dr-dashTests.xctest */,
+				B865696C469F17EF061A6C2F /* dr-dashUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ED77A1EAB3990B6119D31B03 = {
+			isa = PBXGroup;
+			children = (
+				66A2AB399F187A53A3277BB1 /* project.yml */,
+				5A32B1BE56805710E2C8B678 /* README.md */,
+				DD5D8F8E8897B6566D83A95F /* Configuration */,
+				65808E9E55658489E0121A7C /* dr-dash */,
+				618F683390F3DDA2772233EC /* dr-dashTests */,
+				BB1331D9E45B4674EEFE1426 /* dr-dashUITests */,
+				E6DBD02682E1FDA06BC3E537 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1B71C2576A3427A764A68944 /* dr-dash */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BBADA34E0AC4BF98063E08DE /* Build configuration list for PBXNativeTarget "dr-dash" */;
+			buildPhases = (
+				734E7F0B8A06782087D4E61E /* Sources */,
+				A9269725111DE481C0EB2D1F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "dr-dash";
+			packageProductDependencies = (
+			);
+			productName = "dr-dash";
+			productReference = 604E7E618B4F17F697F042C9 /* dr-dash.app */;
+			productType = "com.apple.product-type.application";
+		};
+		4A970F11BD454AAFCE3DD46B /* dr-dashUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3310904E9F18A743BDC6D871 /* Build configuration list for PBXNativeTarget "dr-dashUITests" */;
+			buildPhases = (
+				5AB8B799181988C6A1F7D894 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3A1A49AB86695877421D105C /* PBXTargetDependency */,
+			);
+			name = "dr-dashUITests";
+			packageProductDependencies = (
+			);
+			productName = "dr-dashUITests";
+			productReference = B865696C469F17EF061A6C2F /* dr-dashUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		E774F4250CB2B506A18AD42A /* dr-dashTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0743895378E74EA6DEFC0F4C /* Build configuration list for PBXNativeTarget "dr-dashTests" */;
+			buildPhases = (
+				88CDCD44076204AB52FD551C /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				37E7CF6746DDFEE8D729F782 /* PBXTargetDependency */,
+			);
+			name = "dr-dashTests";
+			packageProductDependencies = (
+			);
+			productName = "dr-dashTests";
+			productReference = B7C6CBEF9384D5B09A83FF68 /* dr-dashTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		77EFAE21DA4E2E0E4E8F03A0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 2720;
+				TargetAttributes = {
+					1B71C2576A3427A764A68944 = {
+						ProvisioningStyle = Automatic;
+					};
+					4A970F11BD454AAFCE3DD46B = {
+						ProvisioningStyle = Automatic;
+						TestTargetID = 1B71C2576A3427A764A68944;
+					};
+					E774F4250CB2B506A18AD42A = {
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 4AEF51BAF870FE95F25CD99E /* Build configuration list for PBXProject "dr-dash" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = ED77A1EAB3990B6119D31B03;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = E6DBD02682E1FDA06BC3E537 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1B71C2576A3427A764A68944 /* dr-dash */,
+				E774F4250CB2B506A18AD42A /* dr-dashTests */,
+				4A970F11BD454AAFCE3DD46B /* dr-dashUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A9269725111DE481C0EB2D1F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E458A883DDFAD79616514AE0 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		5AB8B799181988C6A1F7D894 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ED9A300C0E42D730567A2AB2 /* dr_dashUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		734E7F0B8A06782087D4E61E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				51950F00B8B15C7EAC2611E7 /* ContentView.swift in Sources */,
+				79A5B831B1552A133D434232 /* dr_dashApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		88CDCD44076204AB52FD551C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				566E0018FD133BD61B1B9E8E /* dr_dashTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		37E7CF6746DDFEE8D729F782 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B71C2576A3427A764A68944 /* dr-dash */;
+			targetProxy = 73FE8AFFFEE167011D20D794 /* PBXContainerItemProxy */;
+		};
+		3A1A49AB86695877421D105C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1B71C2576A3427A764A68944 /* dr-dash */;
+			targetProxy = E8B00132E24CF551C6477FC8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		12E7D28906116467AFE087C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 27.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(DR_DASH_BUNDLE_ID_PREFIX).doctorTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dr-dash.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/dr-dash";
+			};
+			name = Release;
+		};
+		4E8B269F6EC48777FD26CEFF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Configuration/dr-dash.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Configuration/dr-dash-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Baymo Doctor";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(DR_DASH_BUNDLE_ID_PREFIX).doctor";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		64113838667BDAD2CAA303B6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(DR_DASH_BUNDLE_ID_PREFIX).doctorUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "dr-dash";
+			};
+			name = Release;
+		};
+		83ADF56E1039B365904F968D /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99C2F85A97D3BDD3BB9FEEFB /* Signing.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		9C34BCA0025F6D6E0B962CDC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 27.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(DR_DASH_BUNDLE_ID_PREFIX).doctorTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/dr-dash.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/dr-dash";
+			};
+			name = Debug;
+		};
+		CB7E3F3875289D68BB28FFA8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(DR_DASH_BUNDLE_ID_PREFIX).doctorUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = "dr-dash";
+			};
+			name = Debug;
+		};
+		D511FA812FB70EE4A3188532 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Configuration/dr-dash.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SELECTED_FILES = readonly;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Configuration/dr-dash-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Baymo Doctor";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "$(DR_DASH_BUNDLE_ID_PREFIX).doctor";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		FD0205A579D22756A1148250 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99C2F85A97D3BDD3BB9FEEFB /* Signing.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 27.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0743895378E74EA6DEFC0F4C /* Build configuration list for PBXNativeTarget "dr-dashTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9C34BCA0025F6D6E0B962CDC /* Debug */,
+				12E7D28906116467AFE087C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		3310904E9F18A743BDC6D871 /* Build configuration list for PBXNativeTarget "dr-dashUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CB7E3F3875289D68BB28FFA8 /* Debug */,
+				64113838667BDAD2CAA303B6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4AEF51BAF870FE95F25CD99E /* Build configuration list for PBXProject "dr-dash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FD0205A579D22756A1148250 /* Debug */,
+				83ADF56E1039B365904F968D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BBADA34E0AC4BF98063E08DE /* Build configuration list for PBXNativeTarget "dr-dash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4E8B269F6EC48777FD26CEFF /* Debug */,
+				D511FA812FB70EE4A3188532 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 77EFAE21DA4E2E0E4E8F03A0 /* Project object */;
+}

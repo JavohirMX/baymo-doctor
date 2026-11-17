@@ -1,0 +1,188 @@
+# Source of truth for dr-dash.xcodeproj. Regenerate with ./scripts/generate-project.sh
+name: dr-dash
+options:
+  minimumXcodeGenVersion: 2.46.0
+  xcodeVersion: '27.2'
+  deploymentTarget:
+    macOS: '27.2'
+  createIntermediateGroups: true
+  generateEmptyDirectories: true
+configFiles:
+  Debug: Configuration/Signing.xcconfig
+  Release: Configuration/Signing.xcconfig
+settings:
+  base:
+    CLANG_WARN_RANGE_LOOP_ANALYSIS: 'YES'
+    ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS: 'YES'
+    CLANG_WARN_INFINITE_RECURSION: 'YES'
+    GCC_WARN_UNUSED_VARIABLE: 'YES'
+    CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING: 'YES'
+    CLANG_WARN_UNGUARDED_AVAILABILITY: YES_AGGRESSIVE
+    COPY_PHASE_STRIP: 'NO'
+    CLANG_WARN_BOOL_CONVERSION: 'YES'
+    CLANG_WARN_ENUM_CONVERSION: 'YES'
+    CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS: 'YES'
+    CLANG_WARN_COMMA: 'YES'
+    CLANG_WARN_INT_CONVERSION: 'YES'
+    ENABLE_STRICT_OBJC_MSGSEND: 'YES'
+    CLANG_WARN_DOCUMENTATION_COMMENTS: 'YES'
+    CLANG_WARN_SUSPICIOUS_MOVE: 'YES'
+    SDKROOT: macosx
+    CLANG_WARN_EMPTY_BODY: 'YES'
+    MTL_FAST_MATH: 'YES'
+    MACOSX_DEPLOYMENT_TARGET: '27.2'
+    CLANG_ENABLE_OBJC_ARC: 'YES'
+    GCC_WARN_UNINITIALIZED_AUTOS: YES_AGGRESSIVE
+    GCC_C_LANGUAGE_STANDARD: gnu17
+    CLANG_ENABLE_MODULES: 'YES'
+    ALWAYS_SEARCH_USER_PATHS: 'NO'
+    CLANG_WARN_DIRECT_OBJC_ISA_USAGE: YES_ERROR
+    CLANG_WARN_CONSTANT_CONVERSION: 'YES'
+    GCC_NO_COMMON_BLOCKS: 'YES'
+    CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF: 'YES'
+    CLANG_WARN_OBJC_ROOT_CLASS: YES_ERROR
+    LOCALIZATION_PREFERS_STRING_CATALOGS: 'YES'
+    CLANG_CXX_LANGUAGE_STANDARD: gnu++20
+    GCC_WARN_64_TO_32_BIT_CONVERSION: 'YES'
+    CLANG_WARN__DUPLICATE_METHOD_MATCH: 'YES'
+    GCC_WARN_UNDECLARED_SELECTOR: 'YES'
+    CLANG_ANALYZER_NONNULL: 'YES'
+    CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION: YES_AGGRESSIVE
+    CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER: 'YES'
+    CLANG_ENABLE_OBJC_WEAK: 'YES'
+    CLANG_WARN_STRICT_PROTOTYPES: 'YES'
+    ENABLE_USER_SCRIPT_SANDBOXING: 'YES'
+    GCC_WARN_ABOUT_RETURN_TYPE: YES_ERROR
+    GCC_WARN_UNUSED_FUNCTION: 'YES'
+    CLANG_WARN_UNREACHABLE_CODE: 'YES'
+    CLANG_WARN_NON_LITERAL_NULL_CONVERSION: 'YES'
+    CLANG_WARN_OBJC_LITERAL_CONVERSION: 'YES'
+  configs:
+    Debug:
+      SWIFT_OPTIMIZATION_LEVEL: -Onone
+      ONLY_ACTIVE_ARCH: 'YES'
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG $(inherited)
+      MTL_ENABLE_DEBUG_INFO: INCLUDE_SOURCE
+      ENABLE_TESTABILITY: 'YES'
+      DEBUG_INFORMATION_FORMAT: dwarf
+      GCC_DYNAMIC_NO_PIC: 'NO'
+      GCC_OPTIMIZATION_LEVEL: '0'
+      GCC_PREPROCESSOR_DEFINITIONS:
+      - DEBUG=1
+      - $(inherited)
+    Release:
+      DEBUG_INFORMATION_FORMAT: dwarf-with-dsym
+      ENABLE_NS_ASSERTIONS: 'NO'
+      SWIFT_COMPILATION_MODE: wholemodule
+      MTL_ENABLE_DEBUG_INFO: 'NO'
+      VALIDATE_PRODUCT: 'YES'
+fileGroups:
+- README.md
+- project.yml
+- Configuration/Signing.xcconfig
+- Configuration/Local.example.xcconfig
+- Configuration/dr-dash-Info.plist
+- Configuration/dr-dash.entitlements
+targets:
+  dr-dash:
+    type: application
+    platform: macOS
+    sources:
+    - dr-dash
+    settings:
+      base:
+        CODE_SIGN_ENTITLEMENTS: Configuration/dr-dash.entitlements
+        ENABLE_APP_SANDBOX: 'YES'
+        ENABLE_USER_SELECTED_FILES: readonly
+        COMBINE_HIDPI_IMAGES: 'YES'
+        MARKETING_VERSION: '1.0'
+        CURRENT_PROJECT_VERSION: '1'
+        PRODUCT_BUNDLE_IDENTIFIER: $(DR_DASH_BUNDLE_ID_PREFIX).doctor
+        SWIFT_DEFAULT_ACTOR_ISOLATION: MainActor
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        STRING_CATALOG_GENERATE_SYMBOLS: 'YES'
+        INFOPLIST_KEY_CFBundleDisplayName: Baymo Doctor
+        CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        LD_RUNPATH_SEARCH_PATHS:
+        - $(inherited)
+        - '@executable_path/../Frameworks'
+        SWIFT_VERSION: '5.0'
+        PRODUCT_NAME: $(TARGET_NAME)
+        SWIFT_APPROACHABLE_CONCURRENCY: 'YES'
+        ENABLE_PREVIEWS: 'YES'
+        SWIFT_EMIT_LOC_STRINGS: 'YES'
+        SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY: 'YES'
+        INFOPLIST_FILE: Configuration/dr-dash-Info.plist
+        GENERATE_INFOPLIST_FILE: 'YES'
+      configs:
+        Debug: {}
+        Release: {}
+  dr-dashTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+    - dr-dashTests
+    settings:
+      base:
+        CURRENT_PROJECT_VERSION: '1'
+        BUNDLE_LOADER: $(TEST_HOST)
+        SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY: 'YES'
+        MARKETING_VERSION: '1.0'
+        TEST_HOST: $(BUILT_PRODUCTS_DIR)/dr-dash.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/dr-dash
+        GENERATE_INFOPLIST_FILE: 'YES'
+        STRING_CATALOG_GENERATE_SYMBOLS: 'NO'
+        CODE_SIGN_STYLE: Automatic
+        PRODUCT_NAME: $(TARGET_NAME)
+        SWIFT_EMIT_LOC_STRINGS: 'NO'
+        SWIFT_VERSION: '5.0'
+        MACOSX_DEPLOYMENT_TARGET: '27.2'
+        SWIFT_APPROACHABLE_CONCURRENCY: 'YES'
+        PRODUCT_BUNDLE_IDENTIFIER: $(DR_DASH_BUNDLE_ID_PREFIX).doctorTests
+      configs:
+        Debug: {}
+        Release: {}
+    dependencies:
+    - target: dr-dash
+  dr-dashUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    sources:
+    - dr-dashUITests
+    settings:
+      base:
+        CURRENT_PROJECT_VERSION: '1'
+        MARKETING_VERSION: '1.0'
+        TEST_TARGET_NAME: dr-dash
+        GENERATE_INFOPLIST_FILE: 'YES'
+        STRING_CATALOG_GENERATE_SYMBOLS: 'NO'
+        CODE_SIGN_STYLE: Automatic
+        PRODUCT_NAME: $(TARGET_NAME)
+        SWIFT_EMIT_LOC_STRINGS: 'NO'
+        SWIFT_VERSION: '5.0'
+        SWIFT_APPROACHABLE_CONCURRENCY: 'YES'
+        SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY: 'YES'
+        PRODUCT_BUNDLE_IDENTIFIER: $(DR_DASH_BUNDLE_ID_PREFIX).doctorUITests
+      configs:
+        Debug: {}
+        Release: {}
+    dependencies:
+    - target: dr-dash
+schemes:
+  dr-dash:
+    build:
+      targets:
+        dr-dash: all
+    run:
+      config: Debug
+    test:
+      config: Debug
+      targets:
+      - name: dr-dashTests
+        parallelizable: false
+      - name: dr-dashUITests
+        parallelizable: false
+    profile:
+      config: Release
+    archive:
+      config: Release

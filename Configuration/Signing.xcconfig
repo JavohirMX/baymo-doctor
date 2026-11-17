@@ -1,0 +1,4 @@
+// Shared defaults for every clone. Personal overrides go in Local.xcconfig (gitignored).
+// Local.xcconfig wins for DEVELOPMENT_TEAM and DR_DASH_BUNDLE_ID_PREFIX when present.
+DR_DASH_BUNDLE_ID_PREFIX = com.baymo
+#include? "Local.xcconfig"
