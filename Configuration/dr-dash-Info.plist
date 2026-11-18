@@ -2,5 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_baymo-clinic._tcp</string>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Baymo Doctor connects to a nearby iPhone on the local network to link a child and sync recordings. Nothing is sent over the internet.</string>
 </dict>
 </plist>

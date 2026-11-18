@@ -88,7 +88,11 @@ targets:
     type: application
     platform: macOS
     sources:
-    - dr-dash
+    - path: dr-dash
+      excludes:
+      - "Resources/DemoECG/**"
+    - path: dr-dash/Resources/DemoECG
+      buildPhase: resources
     settings:
       base:
         CODE_SIGN_ENTITLEMENTS: Configuration/dr-dash.entitlements
@@ -102,6 +106,9 @@ targets:
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         STRING_CATALOG_GENERATE_SYMBOLS: 'YES'
         INFOPLIST_KEY_CFBundleDisplayName: Baymo Doctor
+        INFOPLIST_KEY_NSLocalNetworkUsageDescription: "Baymo Doctor connects to a nearby iPhone on the local network to link a child and sync recordings. Nothing is sent over the internet."
+        INFOPLIST_KEY_NSBonjourServices:
+        - "_baymo-clinic._tcp"
         CODE_SIGN_STYLE: Automatic
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         LD_RUNPATH_SEARCH_PATHS:

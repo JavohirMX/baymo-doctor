@@ -7,11 +7,59 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		02102E11DEF60C7E540BB3EE /* ClinicSidebarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77728FA96AFF3C816B9B7528 /* ClinicSidebarItem.swift */; };
+		121BD801A975FD464191793D /* SyntheticECG.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AD300BD7BEB0BD5CA6116A5 /* SyntheticECG.swift */; };
+		18B1BEBD10C068BE011469F4 /* AtrialFibrillation.csv in Resources */ = {isa = PBXBuildFile; fileRef = 8A73BA9F2F6A15B40914C446 /* AtrialFibrillation.csv */; };
+		232D1C06D2DFA9570D18E99A /* NormalECG.csv in Resources */ = {isa = PBXBuildFile; fileRef = 4CD598528E75BCCB826EA443 /* NormalECG.csv */; };
+		28BE10E48013CC8DC8B549D6 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0010E93849BC7874AE3C62 /* Schedule.swift */; };
+		2ABA969E79695B2814644464 /* LinkPhoneSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 885F5EEB5DABFEEEC7D99D55 /* LinkPhoneSheet.swift */; };
+		30E71BFB6F12D6D22B1BAD28 /* ClinicSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BE54575485DD98C19EC9516 /* ClinicSheet.swift */; };
+		33CB109E17E5564299505A67 /* BeatDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27DA77500673CC5F136E5AF7 /* BeatDetector.swift */; };
+		3432B865493BB86A01A593B2 /* ClinicRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECA39EDCE7F43683571E4B50 /* ClinicRecording.swift */; };
+		37C2B53B2A6829562DC4A102 /* Waveform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7197E08E1E897EDAB7B8E467 /* Waveform.swift */; };
+		3E605F220F14797A5360B793 /* ChildDetailLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B31882BF841629B5BC4917A /* ChildDetailLogic.swift */; };
+		41A944C228B05D27DF57CA95 /* ClinicWire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 686E4C6FDA7B7AA0D5DF457A /* ClinicWire.swift */; };
+		45D831225FBD923D9853FBC0 /* PatientFormSections.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2773113853765B0FE044636 /* PatientFormSections.swift */; };
+		4B2F728F34157CD6958869A1 /* ClinicLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A2AEF9949B5DCC213AE1996 /* ClinicLibrary.swift */; };
+		4DF8473553CC69D4FD491DCB /* ChildDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66A86C3EBA5174EFBC81C25 /* ChildDetailView.swift */; };
+		5144AE8182BC53AE3B75369C /* ClinicButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63D9E1F71EA336C83D3872B2 /* ClinicButtons.swift */; };
+		5182577B6D2DAD6FE84D1AF8 /* ClinicPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = D62F471EA6C31607F7BFF9C4 /* ClinicPalette.swift */; };
 		51950F00B8B15C7EAC2611E7 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71970B9D0608F635B52FA6D9 /* ContentView.swift */; };
 		566E0018FD133BD61B1B9E8E /* dr_dashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE397EFE1DAEDC447F22E70 /* dr_dashTests.swift */; };
+		5B33F9C36A609DEDEF1B53C1 /* SyncPhoneSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FA2CD8C10D6770BC3E3929 /* SyncPhoneSheet.swift */; };
+		5C0D20C98C5CFF38506CE230 /* ClinicTransferApply.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5B9A535A18C9B93757910 /* ClinicTransferApply.swift */; };
+		5F46CB76B185B566D05115B1 /* BeatIntervals.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE26CDAA13C372DE2637D9A6 /* BeatIntervals.swift */; };
+		608794905EFA351A629EFA61 /* ChildMonthCalendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36DC41FA937EA3E76F3FEB9A /* ChildMonthCalendar.swift */; };
+		67497F43B3217EFB656C2C8B /* ClinicTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE98B2A3F2762E86732F9715 /* ClinicTypes.swift */; };
+		6CB44C2E4C816EB487774C38 /* PatientListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DC502182D5AE2C07616FE8AC /* PatientListView.swift */; };
+		731C99426B2E342B5151235B /* ECGViewerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E329C0E154ED2AC6246C5AA /* ECGViewerView.swift */; };
+		7798BE8CE708310A0F52B312 /* ClinicTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D9A1EBBF647B2F2914ACC90 /* ClinicTransfer.swift */; };
 		79A5B831B1552A133D434232 /* dr_dashApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAD52895756FE852F8784A46 /* dr_dashApp.swift */; };
+		7AA96B1ADD031B9E8B95D291 /* ClinicReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE3CACB64456118FC68FF378 /* ClinicReview.swift */; };
+		7B60A228CF2117D0E4C5645D /* ClinicSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 430024A47C4C2097DF3C426C /* ClinicSettingsView.swift */; };
+		8CB112699D1067B8E3F011F2 /* ChildTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA58A2735FCE3463D9AE2032 /* ChildTimelineView.swift */; };
+		92839236D060E16FF904CE05 /* Child.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36E9A9D468725327E74042E8 /* Child.swift */; };
+		97A809CE08659C959FBAFB30 /* BaselineFileParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D3B15FB7AD70ADA4A99F3FD /* BaselineFileParser.swift */; };
+		9EA850653553B449D16921F4 /* ClinicNearbySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 081A7B8E20826EA43AA39D36 /* ClinicNearbySession.swift */; };
+		9EF6C5C97035BCEB724D24D2 /* RecordingQualityCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 876EC13BB1A254B1A4865EE4 /* RecordingQualityCheck.swift */; };
+		A6CDD85C802E5B8FA48DD766 /* DemoClinic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5EEC09B665C4D285861122 /* DemoClinic.swift */; };
+		AE865E98E7FD729CF94A4298 /* PatientDraft.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEFE0B3FA904D9D6CE9737E1 /* PatientDraft.swift */; };
+		BD8707B587AC8883242B366B /* AddPatientSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52BFA593164EABFC88AC792F /* AddPatientSheet.swift */; };
+		C391A1FE41F23F2995D7A538 /* ClinicStatusBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D760B4BF31DAAFD0F7A76B /* ClinicStatusBadge.swift */; };
+		C4567D639029D941756990B4 /* ChildRangeSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44ABA4985D77B866FDD897F9 /* ChildRangeSummaryView.swift */; };
+		C5AA221211042B3547759E47 /* VentricularSeptalDefect.csv in Resources */ = {isa = PBXBuildFile; fileRef = 1C21AB3335909ACD4F1E1A02 /* VentricularSeptalDefect.csv */; };
+		D541791A7FB01AEEA15A30F4 /* EditChildSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 484B621124B3CC093A7A87D5 /* EditChildSheet.swift */; };
+		D568DBE203B9622E841712F9 /* ECGRecording.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27AD71066ABA17221110FC2F /* ECGRecording.swift */; };
+		D6A29966F9648E34E98F97A7 /* ECGPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 872D8BEBD1F9B9EFFDF0CEAA /* ECGPaperView.swift */; };
+		D962BD50BD4B482C2A6D935E /* ClinicListLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87FD12071D58B23FC0155004 /* ClinicListLogic.swift */; };
+		DC11099B9F919CC075744760 /* ChildDiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD84A5BE2DA55EA4A7331D05 /* ChildDiaryView.swift */; };
 		E458A883DDFAD79616514AE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 664FB768AC66FB1E785EB7D9 /* Assets.xcassets */; };
+		E7116794EB9A81FB83C0627A /* ECGMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0047BE3FBDAD136B7518BD9 /* ECGMeasurement.swift */; };
+		E8B72948703F1BB05C8A87A5 /* StoredECGPayload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47E1554FC59F9C82C989524F /* StoredECGPayload.swift */; };
+		EA9834CA27CC9761ECAEC160 /* DiaryEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C65E0BA42F945529726E4E /* DiaryEvent.swift */; };
 		ED9A300C0E42D730567A2AB2 /* dr_dashUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E94B6646B48E64AA53BA819 /* dr_dashUITests.swift */; };
+		F88AB2B0AA7E99FFF28355FE /* BaselineVersion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DA84BD29FAD255EC76506B /* BaselineVersion.swift */; };
+		FFFB09C5F2019C1A0A4F1655 /* ChildECGTrendsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5B856A48493E728C0921F03 /* ChildECGTrendsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,23 +80,133 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		081A7B8E20826EA43AA39D36 /* ClinicNearbySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicNearbySession.swift; sourceTree = "<group>"; };
+		12FA2CD8C10D6770BC3E3929 /* SyncPhoneSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncPhoneSheet.swift; sourceTree = "<group>"; };
+		1B31882BF841629B5BC4917A /* ChildDetailLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildDetailLogic.swift; sourceTree = "<group>"; };
+		1BE54575485DD98C19EC9516 /* ClinicSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicSheet.swift; sourceTree = "<group>"; };
+		1C21AB3335909ACD4F1E1A02 /* VentricularSeptalDefect.csv */ = {isa = PBXFileReference; path = VentricularSeptalDefect.csv; sourceTree = "<group>"; };
+		1D3B15FB7AD70ADA4A99F3FD /* BaselineFileParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaselineFileParser.swift; sourceTree = "<group>"; };
+		25D760B4BF31DAAFD0F7A76B /* ClinicStatusBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicStatusBadge.swift; sourceTree = "<group>"; };
+		27AD71066ABA17221110FC2F /* ECGRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECGRecording.swift; sourceTree = "<group>"; };
+		27DA77500673CC5F136E5AF7 /* BeatDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatDetector.swift; sourceTree = "<group>"; };
+		2D9A1EBBF647B2F2914ACC90 /* ClinicTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicTransfer.swift; sourceTree = "<group>"; };
+		2E329C0E154ED2AC6246C5AA /* ECGViewerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECGViewerView.swift; sourceTree = "<group>"; };
+		36DC41FA937EA3E76F3FEB9A /* ChildMonthCalendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildMonthCalendar.swift; sourceTree = "<group>"; };
+		36E9A9D468725327E74042E8 /* Child.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Child.swift; sourceTree = "<group>"; };
+		38DA84BD29FAD255EC76506B /* BaselineVersion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaselineVersion.swift; sourceTree = "<group>"; };
+		430024A47C4C2097DF3C426C /* ClinicSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicSettingsView.swift; sourceTree = "<group>"; };
+		44ABA4985D77B866FDD897F9 /* ChildRangeSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildRangeSummaryView.swift; sourceTree = "<group>"; };
+		47E1554FC59F9C82C989524F /* StoredECGPayload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoredECGPayload.swift; sourceTree = "<group>"; };
+		484B621124B3CC093A7A87D5 /* EditChildSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditChildSheet.swift; sourceTree = "<group>"; };
+		4AD300BD7BEB0BD5CA6116A5 /* SyntheticECG.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyntheticECG.swift; sourceTree = "<group>"; };
+		4CD598528E75BCCB826EA443 /* NormalECG.csv */ = {isa = PBXFileReference; path = NormalECG.csv; sourceTree = "<group>"; };
 		4E94B6646B48E64AA53BA819 /* dr_dashUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dr_dashUITests.swift; sourceTree = "<group>"; };
 		523DAA2983E8048E7D2968FC /* dr-dash.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "dr-dash.entitlements"; sourceTree = "<group>"; };
+		52BFA593164EABFC88AC792F /* AddPatientSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPatientSheet.swift; sourceTree = "<group>"; };
 		5A32B1BE56805710E2C8B678 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		5D0010E93849BC7874AE3C62 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		604E7E618B4F17F697F042C9 /* dr-dash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "dr-dash.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63D9E1F71EA336C83D3872B2 /* ClinicButtons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicButtons.swift; sourceTree = "<group>"; };
 		664FB768AC66FB1E785EB7D9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66A2AB399F187A53A3277BB1 /* project.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = project.yml; sourceTree = "<group>"; };
+		686E4C6FDA7B7AA0D5DF457A /* ClinicWire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicWire.swift; sourceTree = "<group>"; };
 		71970B9D0608F635B52FA6D9 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		7197E08E1E897EDAB7B8E467 /* Waveform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Waveform.swift; sourceTree = "<group>"; };
+		72C65E0BA42F945529726E4E /* DiaryEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryEvent.swift; sourceTree = "<group>"; };
+		77728FA96AFF3C816B9B7528 /* ClinicSidebarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicSidebarItem.swift; sourceTree = "<group>"; };
+		7A2AEF9949B5DCC213AE1996 /* ClinicLibrary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicLibrary.swift; sourceTree = "<group>"; };
+		872D8BEBD1F9B9EFFDF0CEAA /* ECGPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECGPaperView.swift; sourceTree = "<group>"; };
+		876EC13BB1A254B1A4865EE4 /* RecordingQualityCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordingQualityCheck.swift; sourceTree = "<group>"; };
+		87FD12071D58B23FC0155004 /* ClinicListLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicListLogic.swift; sourceTree = "<group>"; };
+		885F5EEB5DABFEEEC7D99D55 /* LinkPhoneSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkPhoneSheet.swift; sourceTree = "<group>"; };
+		8A73BA9F2F6A15B40914C446 /* AtrialFibrillation.csv */ = {isa = PBXFileReference; path = AtrialFibrillation.csv; sourceTree = "<group>"; };
+		8F5EEC09B665C4D285861122 /* DemoClinic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoClinic.swift; sourceTree = "<group>"; };
 		99C2F85A97D3BDD3BB9FEEFB /* Signing.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Signing.xcconfig; sourceTree = "<group>"; };
+		A66A86C3EBA5174EFBC81C25 /* ChildDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildDetailView.swift; sourceTree = "<group>"; };
+		AA58A2735FCE3463D9AE2032 /* ChildTimelineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildTimelineView.swift; sourceTree = "<group>"; };
+		B2773113853765B0FE044636 /* PatientFormSections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientFormSections.swift; sourceTree = "<group>"; };
 		B7C6CBEF9384D5B09A83FF68 /* dr-dashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dr-dashTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7E633CC6413BB29966ED4F8 /* dr-dash-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "dr-dash-Info.plist"; sourceTree = "<group>"; };
 		B865696C469F17EF061A6C2F /* dr-dashUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "dr-dashUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0B5B9A535A18C9B93757910 /* ClinicTransferApply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicTransferApply.swift; sourceTree = "<group>"; };
 		CAD52895756FE852F8784A46 /* dr_dashApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dr_dashApp.swift; sourceTree = "<group>"; };
+		CD84A5BE2DA55EA4A7331D05 /* ChildDiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildDiaryView.swift; sourceTree = "<group>"; };
+		CEFE0B3FA904D9D6CE9737E1 /* PatientDraft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientDraft.swift; sourceTree = "<group>"; };
 		D09F4A4E2792BA11BDD337F5 /* Local.example.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Local.example.xcconfig; sourceTree = "<group>"; };
+		D62F471EA6C31607F7BFF9C4 /* ClinicPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicPalette.swift; sourceTree = "<group>"; };
 		DAE397EFE1DAEDC447F22E70 /* dr_dashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dr_dashTests.swift; sourceTree = "<group>"; };
+		DC502182D5AE2C07616FE8AC /* PatientListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PatientListView.swift; sourceTree = "<group>"; };
+		DE26CDAA13C372DE2637D9A6 /* BeatIntervals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatIntervals.swift; sourceTree = "<group>"; };
+		E0047BE3FBDAD136B7518BD9 /* ECGMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ECGMeasurement.swift; sourceTree = "<group>"; };
+		ECA39EDCE7F43683571E4B50 /* ClinicRecording.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicRecording.swift; sourceTree = "<group>"; };
+		EE3CACB64456118FC68FF378 /* ClinicReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicReview.swift; sourceTree = "<group>"; };
+		F5B856A48493E728C0921F03 /* ChildECGTrendsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChildECGTrendsView.swift; sourceTree = "<group>"; };
+		FE98B2A3F2762E86732F9715 /* ClinicTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClinicTypes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		04EF0F516CB245A66AE37B3C /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				63D9E1F71EA336C83D3872B2 /* ClinicButtons.swift */,
+				D62F471EA6C31607F7BFF9C4 /* ClinicPalette.swift */,
+				77728FA96AFF3C816B9B7528 /* ClinicSidebarItem.swift */,
+				25D760B4BF31DAAFD0F7A76B /* ClinicStatusBadge.swift */,
+			);
+			path = Design;
+			sourceTree = "<group>";
+		};
+		205F19F0DACB90C6F8025529 /* Signal */ = {
+			isa = PBXGroup;
+			children = (
+				27DA77500673CC5F136E5AF7 /* BeatDetector.swift */,
+				DE26CDAA13C372DE2637D9A6 /* BeatIntervals.swift */,
+				27AD71066ABA17221110FC2F /* ECGRecording.swift */,
+				876EC13BB1A254B1A4865EE4 /* RecordingQualityCheck.swift */,
+				4AD300BD7BEB0BD5CA6116A5 /* SyntheticECG.swift */,
+				7197E08E1E897EDAB7B8E467 /* Waveform.swift */,
+			);
+			path = Signal;
+			sourceTree = "<group>";
+		};
+		229DAF9FC5974BB33A676F41 /* Child */ = {
+			isa = PBXGroup;
+			children = (
+				1B31882BF841629B5BC4917A /* ChildDetailLogic.swift */,
+				A66A86C3EBA5174EFBC81C25 /* ChildDetailView.swift */,
+				CD84A5BE2DA55EA4A7331D05 /* ChildDiaryView.swift */,
+				F5B856A48493E728C0921F03 /* ChildECGTrendsView.swift */,
+				36DC41FA937EA3E76F3FEB9A /* ChildMonthCalendar.swift */,
+				44ABA4985D77B866FDD897F9 /* ChildRangeSummaryView.swift */,
+				AA58A2735FCE3463D9AE2032 /* ChildTimelineView.swift */,
+			);
+			path = Child;
+			sourceTree = "<group>";
+		};
+		3250BA222F3BC4AFEB7F57E6 /* Patients */ = {
+			isa = PBXGroup;
+			children = (
+				52BFA593164EABFC88AC792F /* AddPatientSheet.swift */,
+				1D3B15FB7AD70ADA4A99F3FD /* BaselineFileParser.swift */,
+				484B621124B3CC093A7A87D5 /* EditChildSheet.swift */,
+				CEFE0B3FA904D9D6CE9737E1 /* PatientDraft.swift */,
+				B2773113853765B0FE044636 /* PatientFormSections.swift */,
+			);
+			path = Patients;
+			sourceTree = "<group>";
+		};
+		420769455A06DB417CB1E43F /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				081A7B8E20826EA43AA39D36 /* ClinicNearbySession.swift */,
+				C0B5B9A535A18C9B93757910 /* ClinicTransferApply.swift */,
+				686E4C6FDA7B7AA0D5DF457A /* ClinicWire.swift */,
+				885F5EEB5DABFEEEC7D99D55 /* LinkPhoneSheet.swift */,
+				12FA2CD8C10D6770BC3E3929 /* SyncPhoneSheet.swift */,
+			);
+			path = Transfer;
+			sourceTree = "<group>";
+		};
 		618F683390F3DDA2772233EC /* dr-dashTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -57,14 +215,84 @@
 			path = "dr-dashTests";
 			sourceTree = "<group>";
 		};
+		6243523ACC7D3EE71A358B76 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				7A3E7C5C79069E239445DD8D /* DemoECG */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		65808E9E55658489E0121A7C /* dr-dash */ = {
 			isa = PBXGroup;
 			children = (
 				664FB768AC66FB1E785EB7D9 /* Assets.xcassets */,
 				71970B9D0608F635B52FA6D9 /* ContentView.swift */,
 				CAD52895756FE852F8784A46 /* dr_dashApp.swift */,
+				04EF0F516CB245A66AE37B3C /* Design */,
+				D1DD435A973CCD2EC0339340 /* Features */,
+				A996EF360F2399A78AB79498 /* Model */,
+				6243523ACC7D3EE71A358B76 /* Resources */,
+				7E844257F2A5B96B8B750F09 /* Settings */,
+				F2D51058CACEFD457C839713 /* Shell */,
+				205F19F0DACB90C6F8025529 /* Signal */,
+				B3FD7DFEA2E6F42BA7AF9665 /* Transfer */,
 			);
 			path = "dr-dash";
+			sourceTree = "<group>";
+		};
+		76E482145C7FC07649E40164 /* ECG */ = {
+			isa = PBXGroup;
+			children = (
+				E0047BE3FBDAD136B7518BD9 /* ECGMeasurement.swift */,
+				872D8BEBD1F9B9EFFDF0CEAA /* ECGPaperView.swift */,
+				2E329C0E154ED2AC6246C5AA /* ECGViewerView.swift */,
+			);
+			path = ECG;
+			sourceTree = "<group>";
+		};
+		7A3E7C5C79069E239445DD8D /* DemoECG */ = {
+			isa = PBXGroup;
+			children = (
+				8A73BA9F2F6A15B40914C446 /* AtrialFibrillation.csv */,
+				4CD598528E75BCCB826EA443 /* NormalECG.csv */,
+				1C21AB3335909ACD4F1E1A02 /* VentricularSeptalDefect.csv */,
+			);
+			path = DemoECG;
+			sourceTree = "<group>";
+		};
+		7E844257F2A5B96B8B750F09 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				430024A47C4C2097DF3C426C /* ClinicSettingsView.swift */,
+			);
+			path = Settings;
+			sourceTree = "<group>";
+		};
+		A996EF360F2399A78AB79498 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				38DA84BD29FAD255EC76506B /* BaselineVersion.swift */,
+				36E9A9D468725327E74042E8 /* Child.swift */,
+				7A2AEF9949B5DCC213AE1996 /* ClinicLibrary.swift */,
+				87FD12071D58B23FC0155004 /* ClinicListLogic.swift */,
+				ECA39EDCE7F43683571E4B50 /* ClinicRecording.swift */,
+				EE3CACB64456118FC68FF378 /* ClinicReview.swift */,
+				FE98B2A3F2762E86732F9715 /* ClinicTypes.swift */,
+				8F5EEC09B665C4D285861122 /* DemoClinic.swift */,
+				72C65E0BA42F945529726E4E /* DiaryEvent.swift */,
+				5D0010E93849BC7874AE3C62 /* Schedule.swift */,
+				47E1554FC59F9C82C989524F /* StoredECGPayload.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		B3FD7DFEA2E6F42BA7AF9665 /* Transfer */ = {
+			isa = PBXGroup;
+			children = (
+				2D9A1EBBF647B2F2914ACC90 /* ClinicTransfer.swift */,
+			);
+			path = Transfer;
 			sourceTree = "<group>";
 		};
 		BB1331D9E45B4674EEFE1426 /* dr-dashUITests */ = {
@@ -73,6 +301,17 @@
 				4E94B6646B48E64AA53BA819 /* dr_dashUITests.swift */,
 			);
 			path = "dr-dashUITests";
+			sourceTree = "<group>";
+		};
+		D1DD435A973CCD2EC0339340 /* Features */ = {
+			isa = PBXGroup;
+			children = (
+				229DAF9FC5974BB33A676F41 /* Child */,
+				76E482145C7FC07649E40164 /* ECG */,
+				3250BA222F3BC4AFEB7F57E6 /* Patients */,
+				420769455A06DB417CB1E43F /* Transfer */,
+			);
+			path = Features;
 			sourceTree = "<group>";
 		};
 		DD5D8F8E8897B6566D83A95F /* Configuration */ = {
@@ -107,6 +346,15 @@
 				BB1331D9E45B4674EEFE1426 /* dr-dashUITests */,
 				E6DBD02682E1FDA06BC3E537 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		F2D51058CACEFD457C839713 /* Shell */ = {
+			isa = PBXGroup;
+			children = (
+				1BE54575485DD98C19EC9516 /* ClinicSheet.swift */,
+				DC502182D5AE2C07616FE8AC /* PatientListView.swift */,
+			);
+			path = Shell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -214,6 +462,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E458A883DDFAD79616514AE0 /* Assets.xcassets in Resources */,
+				18B1BEBD10C068BE011469F4 /* AtrialFibrillation.csv in Resources */,
+				232D1C06D2DFA9570D18E99A /* NormalECG.csv in Resources */,
+				C5AA221211042B3547759E47 /* VentricularSeptalDefect.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,7 +483,52 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BD8707B587AC8883242B366B /* AddPatientSheet.swift in Sources */,
+				97A809CE08659C959FBAFB30 /* BaselineFileParser.swift in Sources */,
+				F88AB2B0AA7E99FFF28355FE /* BaselineVersion.swift in Sources */,
+				33CB109E17E5564299505A67 /* BeatDetector.swift in Sources */,
+				5F46CB76B185B566D05115B1 /* BeatIntervals.swift in Sources */,
+				92839236D060E16FF904CE05 /* Child.swift in Sources */,
+				3E605F220F14797A5360B793 /* ChildDetailLogic.swift in Sources */,
+				4DF8473553CC69D4FD491DCB /* ChildDetailView.swift in Sources */,
+				DC11099B9F919CC075744760 /* ChildDiaryView.swift in Sources */,
+				FFFB09C5F2019C1A0A4F1655 /* ChildECGTrendsView.swift in Sources */,
+				608794905EFA351A629EFA61 /* ChildMonthCalendar.swift in Sources */,
+				C4567D639029D941756990B4 /* ChildRangeSummaryView.swift in Sources */,
+				8CB112699D1067B8E3F011F2 /* ChildTimelineView.swift in Sources */,
+				5144AE8182BC53AE3B75369C /* ClinicButtons.swift in Sources */,
+				4B2F728F34157CD6958869A1 /* ClinicLibrary.swift in Sources */,
+				D962BD50BD4B482C2A6D935E /* ClinicListLogic.swift in Sources */,
+				9EA850653553B449D16921F4 /* ClinicNearbySession.swift in Sources */,
+				5182577B6D2DAD6FE84D1AF8 /* ClinicPalette.swift in Sources */,
+				3432B865493BB86A01A593B2 /* ClinicRecording.swift in Sources */,
+				7AA96B1ADD031B9E8B95D291 /* ClinicReview.swift in Sources */,
+				7B60A228CF2117D0E4C5645D /* ClinicSettingsView.swift in Sources */,
+				30E71BFB6F12D6D22B1BAD28 /* ClinicSheet.swift in Sources */,
+				02102E11DEF60C7E540BB3EE /* ClinicSidebarItem.swift in Sources */,
+				C391A1FE41F23F2995D7A538 /* ClinicStatusBadge.swift in Sources */,
+				7798BE8CE708310A0F52B312 /* ClinicTransfer.swift in Sources */,
+				5C0D20C98C5CFF38506CE230 /* ClinicTransferApply.swift in Sources */,
+				67497F43B3217EFB656C2C8B /* ClinicTypes.swift in Sources */,
+				41A944C228B05D27DF57CA95 /* ClinicWire.swift in Sources */,
 				51950F00B8B15C7EAC2611E7 /* ContentView.swift in Sources */,
+				A6CDD85C802E5B8FA48DD766 /* DemoClinic.swift in Sources */,
+				EA9834CA27CC9761ECAEC160 /* DiaryEvent.swift in Sources */,
+				E7116794EB9A81FB83C0627A /* ECGMeasurement.swift in Sources */,
+				D6A29966F9648E34E98F97A7 /* ECGPaperView.swift in Sources */,
+				D568DBE203B9622E841712F9 /* ECGRecording.swift in Sources */,
+				731C99426B2E342B5151235B /* ECGViewerView.swift in Sources */,
+				D541791A7FB01AEEA15A30F4 /* EditChildSheet.swift in Sources */,
+				2ABA969E79695B2814644464 /* LinkPhoneSheet.swift in Sources */,
+				AE865E98E7FD729CF94A4298 /* PatientDraft.swift in Sources */,
+				45D831225FBD923D9853FBC0 /* PatientFormSections.swift in Sources */,
+				6CB44C2E4C816EB487774C38 /* PatientListView.swift in Sources */,
+				9EF6C5C97035BCEB724D24D2 /* RecordingQualityCheck.swift in Sources */,
+				28BE10E48013CC8DC8B549D6 /* Schedule.swift in Sources */,
+				E8B72948703F1BB05C8A87A5 /* StoredECGPayload.swift in Sources */,
+				5B33F9C36A609DEDEF1B53C1 /* SyncPhoneSheet.swift in Sources */,
+				121BD801A975FD464191793D /* SyntheticECG.swift in Sources */,
+				37C2B53B2A6829562DC4A102 /* Waveform.swift in Sources */,
 				79A5B831B1552A133D434232 /* dr_dashApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -303,6 +599,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Configuration/dr-dash-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Baymo Doctor";
+				INFOPLIST_KEY_NSBonjourServices = (
+					"_baymo-clinic._tcp",
+				);
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Baymo Doctor connects to a nearby iPhone on the local network to link a child and sync recordings. Nothing is sent over the internet.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
@@ -475,6 +775,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Configuration/dr-dash-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = "Baymo Doctor";
+				INFOPLIST_KEY_NSBonjourServices = (
+					"_baymo-clinic._tcp",
+				);
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "Baymo Doctor connects to a nearby iPhone on the local network to link a child and sync recordings. Nothing is sent over the internet.";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
