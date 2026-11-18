@@ -10,7 +10,8 @@ struct ClinicPrimaryButton: View {
         Button(action: action) {
             label
         }
-        .buttonStyle(.borderedProminent)
+        .buttonStyle(.glassProminent)
+        .buttonBorderShape(.capsule)
         .disabled(!isEnabled)
     }
 
@@ -34,7 +35,8 @@ struct ClinicSecondaryButton: View {
         Button(action: action) {
             label
         }
-        .buttonStyle(.bordered)
+        .buttonStyle(.glass)
+        .buttonBorderShape(.capsule)
         .disabled(!isEnabled)
     }
 

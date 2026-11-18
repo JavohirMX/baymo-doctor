@@ -55,7 +55,6 @@ struct PatientListView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .background(ClinicPalette.canvas)
-        .searchable(text: $search, placement: .toolbar, prompt: "Search patients")
         .toolbar {
             ToolbarItem(placement: .navigation) {
                 VStack(alignment: .leading, spacing: 1) {
@@ -69,6 +68,8 @@ struct PatientListView: View {
             }
             .sharedBackgroundVisibility(.hidden)
             ToolbarSpacer(.flexible)
+            DefaultToolbarItem(kind: .search)
+            ToolbarSpacer(.fixed)
             ToolbarItem {
                 Button("Sync phone", action: onSync)
                     .buttonStyle(.glass)
@@ -78,6 +79,7 @@ struct PatientListView: View {
                     .buttonStyle(.glassProminent)
             }
         }
+        .searchable(text: $search, placement: .toolbar, prompt: "Search patients")
         .sheet(item: $editor) { editor in
             EditChildSheet(child: editor.child)
         }
@@ -87,9 +89,13 @@ struct PatientListView: View {
         HStack(spacing: 0) {
             Text("Name").frame(width: 280, alignment: .leading)
             Text("Age").frame(width: 72, alignment: .leading)
-            Text("Condition").frame(maxWidth: .infinity, alignment: .leading)
+            Text("Condition")
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .layoutPriority(0)
             Text("Last sync").frame(width: 110, alignment: .leading)
-            Text("Status").frame(width: 280, alignment: .leading)
+            Text("Status")
+                .frame(width: 340, alignment: .leading)
+                .layoutPriority(1)
         }
         .font(.caption)
         .foregroundStyle(ClinicPalette.secondaryText)
@@ -132,7 +138,9 @@ struct PatientListView: View {
                     .font(.body)
                     .foregroundStyle(child.conditionText.isEmpty ? ClinicPalette.secondaryText : ClinicPalette.primaryText)
                     .lineLimit(1)
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .truncationMode(.tail)
+                    .frame(minWidth: 80, maxWidth: .infinity, alignment: .leading)
+                    .layoutPriority(0)
 
                 Text(syncText(child.lastSyncDate))
                     .font(.body)
@@ -143,12 +151,13 @@ struct PatientListView: View {
                     ForEach(ClinicListLogic.listBadges(for: child), id: \.title) { badge in
                         ClinicStatusBadge(title: badge.title, tone: badge.tone)
                     }
-                    Spacer(minLength: 0)
+                    Spacer(minLength: 8)
                     Image(systemName: "chevron.right")
                         .font(.caption.weight(.semibold))
                         .foregroundStyle(ClinicPalette.secondaryText)
                 }
-                .frame(width: 280, alignment: .leading)
+                .frame(width: 340, alignment: .leading)
+                .layoutPriority(1)
             }
             .padding(.vertical, 10)
             .contentShape(Rectangle())

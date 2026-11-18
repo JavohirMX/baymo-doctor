@@ -12,9 +12,12 @@ struct ClinicStatusBadge: View {
             Text(title)
                 .font(.caption.weight(.medium))
                 .foregroundStyle(ClinicPalette.foreground(tone))
+                .lineLimit(1)
+                .fixedSize(horizontal: true, vertical: true)
         }
         .padding(.horizontal, 8)
         .padding(.vertical, 3)
+        .fixedSize(horizontal: true, vertical: true)
         .background(ClinicPalette.background(tone), in: Capsule())
         .accessibilityElement(children: .combine)
         .accessibilityLabel(title)

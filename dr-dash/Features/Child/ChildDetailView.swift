@@ -1,3 +1,4 @@
+import AppKit
 import SwiftData
 import SwiftUI
 
@@ -136,6 +137,7 @@ struct ChildDetailView: View {
                     }
                     Button("Edit patient") { showsEdit = true }
                         .buttonStyle(.glass)
+                        .buttonBorderShape(.capsule)
                         .accessibilityIdentifier("Edit")
                 }
                 Text(identityLine)
@@ -189,14 +191,9 @@ struct ChildDetailView: View {
     }
 
     private var sectionPicker: some View {
-        Picker("Section", selection: $tab) {
-            ForEach(ChildDetailTab.allCases) { item in
-                Text(item.title).tag(item)
-            }
-        }
-        .pickerStyle(.segmented)
-        .labelsHidden()
-        .controlSize(.regular)
+        ClinicSegmentedPicker(selection: $tab)
+            .fixedSize()
+            .accessibilityLabel("Section")
     }
 
     @ViewBuilder
@@ -444,6 +441,66 @@ struct ChildDetailView: View {
         showsEdit = false
         showsSync = false
         showsLink = false
+    }
+}
+
+/// macOS 27 value picker. The bordered control draws the selected segment's bezel.
+private struct ClinicSegmentedPicker: NSViewRepresentable {
+    @Binding var selection: ChildDetailTab
+
+    func makeNSView(context: Context) -> NSSegmentedControl {
+        let control = NSSegmentedControl(
+            labels: ChildDetailTab.allCases.map(\.title),
+            trackingMode: .selectOne,
+            target: context.coordinator,
+            action: #selector(Coordinator.changed(_:))
+        )
+        control.segmentStyle = .rounded
+        control.segmentDistribution = .fit
+        control.role = .valueSelection
+        control.borderShape = .capsule
+        control.controlSize = .regular
+        control.setContentHuggingPriority(.required, for: .horizontal)
+        control.setContentCompressionResistancePriority(.required, for: .horizontal)
+        control.sizeToFit()
+        select(selection, on: control)
+        return control
+    }
+
+    func updateNSView(_ control: NSSegmentedControl, context: Context) {
+        context.coordinator.selection = $selection
+        select(selection, on: control)
+    }
+
+    func sizeThatFits(_ proposal: ProposedViewSize, nsView: NSSegmentedControl, context: Context) -> CGSize? {
+        let size = nsView.fittingSize
+        guard size.width > 1, size.height > 1 else { return CGSize(width: 360, height: 28) }
+        return size
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(selection: $selection)
+    }
+
+    private func select(_ tab: ChildDetailTab, on control: NSSegmentedControl) {
+        let index = ChildDetailTab.allCases.firstIndex(of: tab) ?? 0
+        guard control.selectedSegment != index else { return }
+        control.selectedSegment = index
+    }
+
+    final class Coordinator: NSObject {
+        var selection: Binding<ChildDetailTab>
+
+        init(selection: Binding<ChildDetailTab>) {
+            self.selection = selection
+        }
+
+        @objc func changed(_ sender: NSSegmentedControl) {
+            let tabs = ChildDetailTab.allCases
+            let index = sender.selectedSegment
+            guard tabs.indices.contains(index) else { return }
+            selection.wrappedValue = tabs[index]
+        }
     }
 }
 

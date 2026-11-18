@@ -65,10 +65,12 @@ struct BaselineFileCard: View {
                 }
                 LabeledContent("Recorded", value: file.recordedAt.formatted(date: .abbreviated, time: .omitted))
                 ClinicSecondaryButton(title: "Replace", action: onChoose)
+                    .fixedSize()
             } else {
                 Text("JSON or CSV with at least one ECG lead.")
                     .foregroundStyle(ClinicPalette.secondaryText)
                 ClinicSecondaryButton(title: "Choose file", action: onChoose)
+                    .fixedSize()
             }
             if let footnote {
                 Text(footnote)
@@ -90,41 +92,71 @@ struct ScheduleForm: View {
         Section("Recording schedule") {
             Picker("How often", selection: frequencyChoice) {
                 Text("Every day").tag(ScheduleChoice.everyDay)
-                Text("Specific weekdays").tag(ScheduleChoice.specificWeekdays)
+                Text("Specific days").tag(ScheduleChoice.specificWeekdays)
                 Divider()
                 ForEach(1...7, id: \.self) { count in
                     Text(ScheduleDraft.timesTitle(count)).tag(ScheduleChoice.times(count))
                 }
             }
+            .pickerStyle(.menu)
             if draft.frequency == .specificWeekdays {
-                ForEach(ScheduleDraft.weekdayChoices, id: \.number) { day in
-                    Toggle(day.title, isOn: weekdayBinding(day.number))
+                LabeledContent("Days") {
+                    HStack(spacing: 4) {
+                        ForEach(ScheduleDraft.weekdayChoices, id: \.number) { day in
+                            dayChip(number: day.number, title: day.title)
+                        }
+                    }
+                    .fixedSize(horizontal: true, vertical: true)
                 }
                 if draft.weekdays.isEmpty {
                     Text("Choose at least one day.")
                         .foregroundStyle(ClinicPalette.secondaryText)
                 }
+            } else if draft.frequency == .timesPerWeek {
+                Text(timesNote)
+                    .font(.callout)
+                    .foregroundStyle(ClinicPalette.secondaryText)
             }
-            Stepper(value: $draft.durationMinutes, in: 1...15) {
-                Text("Length, \(draft.durationMinutes) min")
+            LabeledContent("Length") {
+                Stepper(value: $draft.durationMinutes, in: 1...15) {
+                    Text("\(draft.durationMinutes) min")
+                }
+                .fixedSize()
             }
             .accessibilityValue("\(draft.durationMinutes) minutes")
             DatePicker("Reminder", selection: $draft.reminder, displayedComponents: .hourAndMinute)
+                .datePickerStyle(.stepperField)
             Toggle("Record when symptoms happen", isOn: $draft.recordWhenSymptoms)
         }
     }
 
-    private func weekdayBinding(_ number: Int) -> Binding<Bool> {
-        Binding(
-            get: { draft.weekdays.contains(number) },
-            set: { isOn in
-                if isOn {
-                    draft.weekdays.insert(number)
-                } else {
-                    draft.weekdays.remove(number)
-                }
-            }
-        )
+    private var timesNote: String {
+        let count = min(7, max(1, draft.timesPerWeek))
+        return count == 1 ? "Any 1 day in the week." : "Any \(count) days in the week."
+    }
+
+    @ViewBuilder
+    private func dayChip(number: Int, title: String) -> some View {
+        let selected = draft.weekdays.contains(number)
+        if selected {
+            Button(title) { toggleWeekday(number) }
+                .buttonStyle(.glassProminent)
+                .buttonBorderShape(.capsule)
+                .controlSize(.small)
+        } else {
+            Button(title) { toggleWeekday(number) }
+                .buttonStyle(.glass)
+                .buttonBorderShape(.capsule)
+                .controlSize(.small)
+        }
+    }
+
+    private func toggleWeekday(_ number: Int) {
+        if draft.weekdays.contains(number) {
+            draft.weekdays.remove(number)
+        } else {
+            draft.weekdays.insert(number)
+        }
     }
 
     private var frequencyChoice: Binding<ScheduleChoice> {

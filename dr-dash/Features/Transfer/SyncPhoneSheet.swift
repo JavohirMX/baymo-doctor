@@ -1,3 +1,4 @@
+import AppKit
 import Observation
 import SwiftData
 import SwiftUI
@@ -83,6 +84,7 @@ struct SyncPhoneSheet: View {
                 isEnabled: model.phase != .contacting,
                 onSubmit: { model.connect() }
             )
+            .frame(maxWidth: .infinity)
             if let codeError = model.codeError {
                 Text(codeError.message)
                     .foregroundStyle(ClinicPalette.foreground(.red))
@@ -241,59 +243,248 @@ struct SyncPhoneSheet: View {
     }
 }
 
-/// Six native fields, one digit each. The code stays digits only and is at most six characters.
+/// One text field drawn as six cells, with a dash between the two halves.
 private struct ClinicCodeField: View {
     @Binding var code: String
     var isEnabled: Bool
     var onSubmit: () -> Void
 
-    @FocusState private var focusedIndex: Int?
+    @State private var caretIndex = 0
+    @State private var isFocused = false
+    @State private var focusRequest = 0
 
     var body: some View {
-        HStack(spacing: 8) {
-            ForEach(0..<6, id: \.self) { index in
-                TextField("", text: digitBinding(index))
-                    .textFieldStyle(.roundedBorder)
-                    .multilineTextAlignment(.center)
-                    .font(.title3.monospaced())
-                    .frame(width: 44)
-                    .focused($focusedIndex, equals: index)
-                    .onSubmit(onSubmit)
-                    .accessibilityLabel(index == 0 ? "6-digit code" : "Digit \(index + 1)")
-            }
+        ZStack {
+            ClinicCodeInput(
+                code: $code,
+                caretIndex: $caretIndex,
+                isFocused: $isFocused,
+                isEnabled: isEnabled,
+                focusRequest: focusRequest,
+                onSubmit: onSubmit
+            )
+            codeRow
+                .allowsHitTesting(isEnabled)
         }
-        .disabled(!isEnabled)
-        .onAppear { focusedIndex = 0 }
+        .frame(width: 310, height: 54)
+        .onAppear { focusRequest += 1 }
+        .onChange(of: isEnabled) { _, enabled in
+            if enabled { focusRequest += 1 }
+        }
     }
 
-    private func digitBinding(_ index: Int) -> Binding<String> {
-        Binding(
-            get: {
-                let characters = Array(code)
-                guard index < characters.count else { return "" }
-                return String(characters[index])
-            },
-            set: { raw in
-                let digits = raw.filter { $0.isASCII && $0.isNumber }
-                var characters = Array(code)
-                if digits.isEmpty {
-                    if index < characters.count {
-                        characters.remove(at: index)
+    private var codeRow: some View {
+        HStack(spacing: 6) {
+            ForEach(0..<3, id: \.self) { index in
+                cell(index)
+            }
+            RoundedRectangle(cornerRadius: 1, style: .continuous)
+                .fill(ClinicPalette.secondaryText)
+                .frame(width: 10, height: 2)
+                .accessibilityHidden(true)
+            ForEach(3..<6, id: \.self) { index in
+                cell(index)
+            }
+        }
+        .accessibilityHidden(true)
+    }
+
+    private func cell(_ index: Int) -> some View {
+        let characters = Array(code)
+        let digit = index < characters.count ? String(characters[index]) : ""
+        let caret = caretPlacement(at: index)
+        return ZStack {
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .fill(Color(nsColor: .textBackgroundColor))
+            RoundedRectangle(cornerRadius: 8, style: .continuous)
+                .strokeBorder(
+                    caret == .none ? Color(nsColor: .separatorColor) : Color.accentColor,
+                    lineWidth: caret == .none ? 1 : 2
+                )
+            HStack(spacing: 2) {
+                if caret == .before || caret == .alone {
+                    caretMark
+                }
+                if !digit.isEmpty {
+                    Text(digit)
+                        .font(.system(size: 28, weight: .regular, design: .monospaced))
+                        .foregroundStyle(ClinicPalette.primaryText)
+                }
+                if caret == .after {
+                    caretMark
+                }
+            }
+        }
+        .frame(width: 44, height: 54)
+        .contentShape(RoundedRectangle(cornerRadius: 8, style: .continuous))
+        .onTapGesture {
+            caretIndex = min(index, code.count)
+            focusRequest += 1
+        }
+    }
+
+    private var caretMark: some View {
+        TimelineView(.periodic(from: .now, by: 0.55)) { context in
+            let visible = Int(context.date.timeIntervalSinceReferenceDate / 0.55).isMultiple(of: 2)
+            Capsule()
+                .fill(Color.accentColor)
+                .frame(width: 2, height: 26)
+                .opacity(visible ? 1 : 0)
+        }
+    }
+
+    private func caretPlacement(at index: Int) -> CaretPlacement {
+        guard isFocused else { return .none }
+        let insertion = min(max(caretIndex, 0), code.count)
+        if insertion == 6 { return index == 5 ? .after : .none }
+        guard insertion == index else { return .none }
+        return index < code.count ? .before : .alone
+    }
+
+    private enum CaretPlacement {
+        case none
+        case before
+        case after
+        case alone
+    }
+}
+
+/// The single editor behind the six cells. Typing, backspace, and paste all change one string.
+private struct ClinicCodeInput: NSViewRepresentable {
+    @Binding var code: String
+    @Binding var caretIndex: Int
+    @Binding var isFocused: Bool
+    var isEnabled: Bool
+    var focusRequest: Int
+    var onSubmit: () -> Void
+
+    func makeNSView(context: Context) -> NSTextField {
+        let field = NSTextField(string: code)
+        field.delegate = context.coordinator
+        field.isBordered = false
+        field.drawsBackground = false
+        field.focusRingType = .none
+        field.textColor = .clear
+        field.font = .monospacedDigitSystemFont(ofSize: 28, weight: .regular)
+        field.maximumNumberOfLines = 1
+        field.cell?.sendsActionOnEndEditing = false
+        field.alphaValue = 0.01
+        field.setAccessibilityLabel("6-digit code")
+        context.coordinator.field = field
+        return field
+    }
+
+    func updateNSView(_ field: NSTextField, context: Context) {
+        context.coordinator.code = $code
+        context.coordinator.caretIndex = $caretIndex
+        context.coordinator.isFocused = $isFocused
+        context.coordinator.onSubmit = onSubmit
+        field.isEnabled = isEnabled
+        if field.stringValue != code {
+            context.coordinator.replace(field, with: code, caret: caretIndex)
+        }
+        guard context.coordinator.appliedFocus != focusRequest else { return }
+        context.coordinator.appliedFocus = focusRequest
+        let index = min(max(caretIndex, 0), code.count)
+        context.coordinator.focus(field, at: index)
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(code: $code, caretIndex: $caretIndex, isFocused: $isFocused, onSubmit: onSubmit)
+    }
+
+    final class Coordinator: NSObject, NSTextFieldDelegate {
+        var code: Binding<String>
+        var caretIndex: Binding<Int>
+        var isFocused: Binding<Bool>
+        var onSubmit: () -> Void
+        var appliedFocus = 0
+        weak var field: NSTextField?
+        private var isApplying = false
+
+        init(
+            code: Binding<String>,
+            caretIndex: Binding<Int>,
+            isFocused: Binding<Bool>,
+            onSubmit: @escaping () -> Void
+        ) {
+            self.code = code
+            self.caretIndex = caretIndex
+            self.isFocused = isFocused
+            self.onSubmit = onSubmit
+        }
+
+        func controlTextDidChange(_ notification: Notification) {
+            guard !isApplying, let field = notification.object as? NSTextField else { return }
+            let digits = ClinicNearbyCode.digits(from: field.stringValue)
+            let caret = min(currentCaret(in: field), digits.count)
+            replace(field, with: digits, caret: caret)
+            code.wrappedValue = digits
+            caretIndex.wrappedValue = caret
+        }
+
+        func controlTextDidBeginEditing(_ notification: Notification) {
+            isFocused.wrappedValue = true
+            guard let editor = field?.currentEditor() as? NSTextView else { return }
+            editor.drawsBackground = false
+            editor.backgroundColor = .clear
+            editor.insertionPointColor = .clear
+            editor.textColor = .clear
+        }
+
+        func controlTextDidEndEditing(_ notification: Notification) {
+            isFocused.wrappedValue = false
+        }
+
+        func control(
+            _ control: NSControl,
+            textView: NSTextView,
+            doCommandBy commandSelector: Selector
+        ) -> Bool {
+            if commandSelector == #selector(NSResponder.insertNewline(_:)) {
+                onSubmit()
+                return true
+            }
+            return false
+        }
+
+        func textViewDidChangeSelection(_ notification: Notification) {
+            guard !isApplying, let editor = notification.object as? NSTextView else { return }
+            let index = min(max(editor.selectedRange.location, 0), code.wrappedValue.count)
+            guard caretIndex.wrappedValue != index else { return }
+            caretIndex.wrappedValue = index
+        }
+
+        func replace(_ field: NSTextField, with digits: String, caret: Int) {
+            isApplying = true
+            if field.stringValue != digits {
+                field.stringValue = digits
+            }
+            placeCaret(in: field, at: caret)
+            isApplying = false
+        }
+
+        func focus(_ field: NSTextField, at index: Int, attempt: Int = 0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(40 * (attempt + 1))) {
+                guard field.window != nil else {
+                    if attempt < 6 {
+                        self.focus(field, at: index, attempt: attempt + 1)
                     }
-                    code = String(characters)
-                    focusedIndex = max(0, index - 1)
                     return
                 }
-                let typed = digits[digits.index(before: digits.endIndex)]
-                if index < characters.count {
-                    characters[index] = typed
-                } else if index == characters.count {
-                    characters.append(typed)
-                }
-                code = String(characters.prefix(6))
-                focusedIndex = min(index + 1, 5)
+                field.window?.makeFirstResponder(field)
+                self.placeCaret(in: field, at: index)
             }
-        )
+        }
+
+        func placeCaret(in field: NSTextField, at index: Int) {
+            let clamped = min(max(index, 0), field.stringValue.count)
+            field.currentEditor()?.selectedRange = NSRange(location: clamped, length: 0)
+        }
+
+        private func currentCaret(in field: NSTextField) -> Int {
+            field.currentEditor()?.selectedRange.location ?? field.stringValue.count
+        }
     }
 }
 
