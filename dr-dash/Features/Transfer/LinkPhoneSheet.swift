@@ -168,6 +168,7 @@ final class LinkPhoneModel {
     private var inbox = ClinicWireInbox()
     private var sessionGeneration = 0
     private var left = false
+    private var linkCommit = ClinicTransferCommit()
 
     init(child: Child) {
         self.child = child
@@ -202,6 +203,7 @@ final class LinkPhoneModel {
         codeError = nil
         networkError = nil
         failureMessage = ""
+        linkCommit = ClinicTransferCommit()
         phase = .waiting
         inbox = ClinicWireInbox()
         sessionGeneration += 1
@@ -237,7 +239,13 @@ final class LinkPhoneModel {
         case .ready:
             break
         case .peerLost:
+            if phase == .linked {
+                transport?.stop()
+                transport = nil
+                return
+            }
             guard phase == .sending else { return }
+            linkCommit.noteCancelledOrDropped()
             failureMessage = "The phone disconnected before the link finished. This child was not marked as linked."
             phase = .failed
             transport?.stop()
@@ -251,14 +259,18 @@ final class LinkPhoneModel {
     }
 
     private func receive(_ data: Data) {
-        guard !left, phase == .waiting else { return }
+        guard !left, phase == .waiting || phase == .sending else { return }
         do {
             guard let incoming = try inbox.take(data) else { return }
             switch incoming {
             case .code(let value):
+                guard phase == .waiting else { return }
                 networkError = nil
                 judge(value)
+            case .receipt:
+                markLinked()
             default:
+                guard phase == .waiting else { return }
                 networkError = "The phone sent an unexpected message."
             }
         } catch {
@@ -309,9 +321,7 @@ final class LinkPhoneModel {
                 guard phase == .sending else { return }
                 try transport.send(ClinicWireMessage.complete())
                 guard phase == .sending else { return }
-                child.setLinkState(.linked)
-                try? child.modelContext?.save()
-                phase = .linked
+                linkCommit.noteLocalComplete()
             } catch {
                 guard phase == .sending else { return }
                 failureMessage = Self.linkFailureMessage(for: error)
@@ -330,5 +340,13 @@ final class LinkPhoneModel {
             return "The link is too large to send. This child was not marked as linked."
         }
         return "The link could not be sent. This child was not marked as linked."
+    }
+
+    /// The child stays unlinked until the phone confirms it applied the payload.
+    private func markLinked() {
+        guard phase == .sending, linkCommit.noteReceipt() else { return }
+        child.setLinkState(.linked)
+        try? child.modelContext?.save()
+        phase = .linked
     }
 }

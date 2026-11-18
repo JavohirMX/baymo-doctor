@@ -596,9 +596,18 @@ final class SyncPhoneModel {
             do {
                 try transport?.send(ClinicWireMessage.code(code))
             } catch {
-                fail("The code could not be sent to the phone.")
+                reopenBrowse()
             }
         case .peerLost:
+            if phase == .success {
+                transport?.stop()
+                transport = nil
+                return
+            }
+            if phase == .contacting, !codeAccepted {
+                reopenBrowse()
+                return
+            }
             fail("The phone disconnected before the sync finished.")
         case .startFailed(let message):
             fail(message)
@@ -647,9 +656,27 @@ final class SyncPhoneModel {
             finishIfComplete()
         case .cancel:
             fail("The phone cancelled the sync.")
-        case .link:
+        case .link, .receipt:
             fail("The phone sent an unexpected message.")
         }
+    }
+
+    /// A dropped invitation before the code is accepted is not a finished sync.
+    private func reopenBrowse() {
+        guard !left, phase == .contacting, !codeAccepted else { return }
+        sessionGeneration += 1
+        let generation = sessionGeneration
+        let old = transport
+        transport = nil
+        old?.stop()
+        inbox = ClinicWireInbox()
+        contactingDetail = "Looking for a phone. Nothing is sent online."
+        let session = ClinicNearbySession(mode: .browseSync) { [weak self] event in
+            guard let self, self.sessionGeneration == generation else { return }
+            self.handle(event)
+        }
+        transport = session
+        session.start()
     }
 
     private func beginManifest(childID: UUID, newerThan: Date?, recordings: Int, diary: Int) {
@@ -746,7 +773,8 @@ final class SyncPhoneModel {
             fail("The phone finished before identifying the child.")
             return
         }
-        guard receivedRecordings.count >= recordingTotal, receivedDiary.count >= journalTotal else {
+        let covered = receivedRecordings.count >= recordingTotal && receivedDiary.count >= journalTotal
+        guard ClinicTransferCommit.mayAdvanceLastSync(completeCoversManifest: covered, droppedBeforeComplete: false) else {
             fail("The phone finished before every item arrived.")
             return
         }
@@ -768,7 +796,7 @@ final class SyncPhoneModel {
         )
         persist()
         phase = .success
-        shutdown(sendCancel: false)
+        try? transport?.send(ClinicWireMessage.receipt())
     }
 
     private func resolve(_ id: UUID) -> Child? {

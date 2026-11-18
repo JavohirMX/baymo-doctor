@@ -61,8 +61,8 @@ Every session's first data message is `code`. Clinic JSON sent before an accepte
 3. Mac checks the lifetime, then the digits.
 4. If the code is expired or wrong, the Mac sends `codeResult` with `accepted: false` and `reason` `expired` or `mismatch`, then disconnects that phone. It sends no `link` message. The link sheet stays open and shows the error. The child is not deleted and is not marked linked.
 5. If the code matches, the Mac sends `codeResult` with `accepted: true`, then one `link` message (chunked if it is large), then `complete`.
-6. The phone applies the link only after the whole `link` message and the following `complete` have arrived. A drop before `complete` means the link did not finish. Discard a partial link.
-7. After the Mac has queued `complete`, it marks that child linked. Closing the sheet does not delete the child.
+6. The phone applies the link only after the whole `link` message and the following `complete` have arrived. It then sends `receipt` and keeps the session open long enough for that message to leave. A drop before `complete` means the link did not finish. Discard a partial link.
+7. The Mac marks that child linked only after `receipt`. Queuing `complete` is not enough. A drop before `receipt` leaves the child unlinked. Closing the sheet does not delete the child.
 
 ### Sync
 
@@ -71,11 +71,11 @@ Every session's first data message is `code`. Clinic JSON sent before an accepte
 3. Mac sends `code`. This is the first data message.
 4. Phone checks the code it issued.
 5. If the code is wrong or expired, the phone sends `codeResult` with `accepted: false` and `reason` `mismatch` or `expired`, and sends no recordings or diary. The Mac stays on the code sheet and shows that error. It does not show the success sheet.
-6. If the code matches, the phone sends `codeResult` with `accepted: true`, then `syncManifest`, then one `recording` message per recording, then one `diary` message per diary entry, then `complete`.
+6. If the code matches, the phone sends `codeResult` with `accepted: true`, then `syncManifest`, then one `recording` message per recording, then one `diary` message per diary entry, then `complete`. It stays connected.
 7. The Mac merges each recording or diary item when that item's message is fully reassembled. It does not wait for `complete` to keep a finished item.
-8. The Mac advances the child's last sync date only after `complete`, and only when at least as many distinct recordings and diary entries as the manifest promised have been merged.
-9. If the doctor taps Stop, the Mac sends `cancel` and disconnects. Items already fully received stay. The last sync date stays where it was.
-10. If the session drops before `complete`, the Mac shows a failed sync, not success. Items already fully received stay. The last sync date stays where it was.
+8. The Mac advances the child's last sync date only after `complete`, and only when at least as many distinct recordings and diary entries as the manifest promised have been merged. It then sends `receipt` and stays connected. The phone advances its send cursor only after that `receipt`, then disconnects. The Mac treats that disconnect as success.
+9. If the doctor taps Stop, the Mac sends `cancel` and disconnects. Items already fully received stay. The last sync date stays where it was. The phone does not advance its cursor.
+10. If the session drops before the phone has received `receipt`, the phone shows a failed sync and does not advance its cursor. If the Mac has not yet processed `complete`, it shows a failed sync and does not move the last sync date. Items already fully received stay. A later sync sends the same items again; the Mac updates them by id.
 
 Send each recording and each diary entry once. `recordingCount` and `diaryCount` are counts of distinct ids. Journal on the Mac progress sheet means every diary entry (symptom, activity, and journal), not only `kind: journal`.
 
@@ -94,6 +94,7 @@ A sensible send order is recordings by `startDate`, then diary entries by `start
 | Sync finished | Date span, recording count, missed days, journal count. Done, or Review this child. | Moves forward | No |
 | Doctor taps Stop | "Sync stopped." Fully received items stay. | Unchanged | No |
 | Phone drops before `complete` | "Sync failed." This is not the success sheet. Fully received items stay. | Unchanged | No |
+| Phone drops after `complete` but before `receipt` | The Mac may already show success if `complete` covered the manifest. The phone shows a failed sync. | Moves only if `complete` covered the manifest | No |
 
 Missed days on the success sheet are the distinct local calendar days of received recordings whose `parentStatus` is `missed`. The phone does not send a separate missed-day count.
 
@@ -114,7 +115,7 @@ Progress numbers ("Recordings 4 of 6", "Journal 11 of 11") come from the manifes
 
 ## Wire messages
 
-`type` is one of `code`, `codeResult`, `link`, `syncManifest`, `recording`, `diary`, `complete`, `cancel`, `chunk`.
+`type` is one of `code`, `codeResult`, `link`, `syncManifest`, `recording`, `diary`, `complete`, `cancel`, `receipt`, `chunk`.
 
 ### code
 
@@ -201,7 +202,15 @@ Same shape. `diary` is one `ClinicDiaryPayload`. Count every diary kind toward `
 { "type": "complete", "version": 1 }
 ```
 
-The phone sends this only after every promised recording and diary message. The Mac treats `complete` as success only when the distinct items it has merged cover the manifest counts. Fewer items is a failed sync: the merged items stay, and the last sync date does not move.
+The phone sends this only after every promised recording and diary message. The Mac treats `complete` as success only when the distinct items it has merged cover the manifest counts. Fewer items is a failed sync: the merged items stay, and the last sync date does not move. After a covered `complete`, the Mac sends `receipt`. The phone does not treat its own queued `complete` as confirmation.
+
+### receipt
+
+```json
+{ "type": "receipt", "version": 1 }
+```
+
+No clinic payload. On a link, the phone sends it once `link` and `complete` have both arrived, applies the profile only after that send returns, then disconnects. The Mac marks the child linked only when this arrives. On a sync, the Mac sends it after a covered `complete`. The phone advances its send cursor only when this arrives, then disconnects.
 
 ### cancel
 
@@ -348,7 +357,7 @@ When a live sync completes, the Mac sets `lastSyncDate` to the latest `startDate
 
 Stop, failure, a wrong code, and an expired code leave `lastSyncDate` as it was, including when some items were already saved.
 
-The phone should keep its own send cursor. Advance it only after `complete` has been sent and the Mac has not cancelled or dropped. Use the same covered-end rule: the latest item time, or the time the empty payload was built. If the phone sends an id the Mac already has, the Mac updates the phone-owned fields and does not create a second row.
+The phone should keep its own send cursor. Advance it only after `receipt` has arrived and the Mac has not cancelled or dropped. Queuing `complete` is not enough, because a disconnect can drop bytes that were only queued. Use the same covered-end rule: the latest item time, or the time the empty payload was built. If the phone sends an id the Mac already has, the Mac updates the phone-owned fields and does not create a second row.
 
 ## Files for testing before the phone exists
 

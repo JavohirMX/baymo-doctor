@@ -380,6 +380,38 @@ struct ClinicAppearanceTests {
     }
 }
 
+@MainActor
+struct ClinicReceiptTests {
+    @Test func lastSyncStaysPutUntilCompleteCoversTheManifest() {
+        let existing = date(2026, 11, 1, 8, 0)
+        #expect(!ClinicTransferCommit.mayAdvanceLastSync(completeCoversManifest: false, droppedBeforeComplete: false))
+        #expect(!ClinicTransferCommit.mayAdvanceLastSync(completeCoversManifest: true, droppedBeforeComplete: true))
+        #expect(ClinicTransferCommit.mayAdvanceLastSync(completeCoversManifest: true, droppedBeforeComplete: false))
+        let unchanged = ClinicSyncClock.advanced(existing: existing, payload: ClinicSyncPayload(
+            childID: UUID(), newerThan: nil, recordings: [], diary: []
+        ), completedAt: existing.addingTimeInterval(-30))
+        #expect(unchanged == existing)
+    }
+
+    @Test func aChildIsMarkedLinkedOnlyAfterReceipt() {
+        var dropped = ClinicTransferCommit()
+        dropped.noteLocalComplete()
+        dropped.noteCancelledOrDropped()
+        let lateReceipt = dropped.noteReceipt()
+        #expect(!lateReceipt)
+        #expect(!dropped.committed)
+
+        var linked = ClinicTransferCommit()
+        linked.noteLocalComplete()
+        #expect(!linked.committed)
+        let firstReceipt = linked.noteReceipt()
+        #expect(firstReceipt)
+        #expect(linked.committed)
+        let secondReceipt = linked.noteReceipt()
+        #expect(!secondReceipt)
+    }
+}
+
 private func date(
     _ year: Int,
     _ month: Int,
