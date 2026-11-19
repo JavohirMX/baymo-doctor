@@ -355,6 +355,8 @@ The Mac does not read a new cursor out of `newerThan`. That field is only the ex
 
 When a live sync completes, the Mac sets `lastSyncDate` to the latest `startDate` or `startedAt` in the items it kept (the covered end). If the phone completed a sync that contained no items, the Mac sets `lastSyncDate` to the time that sync finished. The stored date never moves backward.
 
+Since last sync on the child page is not that covered end. It shows events strictly after the previous covered end, so the ECG, journal, and symptom from one sync stay visible together. The first live sync, and a child whose stored covered end is already the newest event, shows the whole history. Demo children have no live-sync bound and keep an inclusive start at `lastSyncDate`.
+
 Stop, failure, a wrong code, and an expired code leave `lastSyncDate` as it was, including when some items were already saved.
 
 The phone should keep its own send cursor. Advance it only after `receipt` has arrived and the Mac has not cancelled or dropped. Queuing `complete` is not enough, because a disconnect can drop bytes that were only queued. Use the same covered-end rule: the latest item time, or the time the empty payload was built. If the phone sends an id the Mac already has, the Mac updates the phone-owned fields and does not create a second row.

@@ -398,7 +398,9 @@ struct ECGViewerView: View {
         let filter = ChildDetailLogic.dateFilter(
             range: .sinceLastSync,
             day: nil,
-            lastSyncDate: child.lastSyncDate
+            lastSyncDate: child.lastSyncDate,
+            latestSyncLowerBound: child.latestSyncLowerBound,
+            hasLatestSyncBound: child.hasLatestSyncBound
         )
         return child.recordings
             .filter { $0.id != activeRecording.id && filter.contains($0.startDate) }

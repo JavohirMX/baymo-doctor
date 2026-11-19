@@ -784,8 +784,11 @@ final class SyncPhoneModel {
             recordings: receivedRecordings,
             diary: receivedDiary
         )
+        let previousSync = syncedChild.lastSyncDate
+        syncedChild.latestSyncLowerBound = previousSync
+        syncedChild.hasLatestSyncBound = true
         syncedChild.lastSyncDate = ClinicSyncClock.advanced(
-            existing: syncedChild.lastSyncDate,
+            existing: previousSync,
             payload: payload,
             completedAt: .now
         )

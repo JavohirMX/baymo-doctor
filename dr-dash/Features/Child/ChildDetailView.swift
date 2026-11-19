@@ -312,7 +312,13 @@ struct ChildDetailView: View {
     }
 
     private var activeFilter: ClinicDateFilter {
-        ChildDetailLogic.dateFilter(range: range, day: nil, lastSyncDate: child.lastSyncDate)
+        ChildDetailLogic.dateFilter(
+            range: range,
+            day: nil,
+            lastSyncDate: child.lastSyncDate,
+            latestSyncLowerBound: child.latestSyncLowerBound,
+            hasLatestSyncBound: child.hasLatestSyncBound
+        )
     }
 
     private var scheduleFact: ChildScheduleFact? {

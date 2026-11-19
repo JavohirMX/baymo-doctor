@@ -16,21 +16,60 @@ nonisolated struct ClinicChildSummary: Identifiable, Equatable, Sendable {
     var birthDate: Date
     var conditionText: String
     var lastSyncDate: Date?
+    var latestSyncLowerBound: Date? = nil
+    var hasLatestSyncBound: Bool = false
     var phoneLinked: Bool
     var recordings: [ClinicAttentionRecording]
 }
 
 /// Inclusive date window. A nil bound is open. `all` includes every date.
+/// `excludesStart` makes the start exclusive, matching the phone's send cursor.
 nonisolated struct ClinicDateFilter: Equatable, Sendable {
     var start: Date?
     var end: Date?
+    var excludesStart = false
 
     static let all = ClinicDateFilter(start: nil, end: nil)
+    /// Matches nothing. Used when Since last sync is selected and the child has never synced.
+    static let unsynced = ClinicDateFilter(start: .distantFuture, end: nil)
 
     func contains(_ date: Date) -> Bool {
-        if let start, date < start { return false }
+        if let start {
+            if excludesStart {
+                if date <= start { return false }
+            } else if date < start {
+                return false
+            }
+        }
         if let end, date > end { return false }
         return true
+    }
+}
+
+/// Since last sync. A live sync stores an exclusive lower bound; nil means the whole history.
+/// Demo children leave `hasLatestSyncBound` false and keep an inclusive start at `lastSyncDate`.
+nonisolated struct ClinicSyncWindow: Equatable, Sendable {
+    var lastSyncDate: Date?
+    var latestSyncLowerBound: Date?
+    var hasLatestSyncBound: Bool
+
+    func sinceLastSyncFilter() -> ClinicDateFilter {
+        if hasLatestSyncBound {
+            guard let latestSyncLowerBound else { return .all }
+            return ClinicDateFilter(start: latestSyncLowerBound, end: nil, excludesStart: true)
+        }
+        guard let lastSyncDate else { return .unsynced }
+        return ClinicDateFilter(start: lastSyncDate, end: nil)
+    }
+
+    /// The covered end is already the newest event, so the stored batch should all be visible.
+    static func revealsWholeHistory(
+        lastSyncDate: Date?,
+        newestEvent: Date?,
+        hasLatestSyncBound: Bool
+    ) -> Bool {
+        guard !hasLatestSyncBound, let lastSyncDate, let newestEvent else { return false }
+        return lastSyncDate == newestEvent
     }
 }
 
@@ -111,31 +150,48 @@ nonisolated enum ClinicListLogic {
     }
 
     /// Unreviewed `changeDetected`, `urgent`, or `unsure` always count.
-    /// An unreviewed `missed` check counts when `lastSyncDate` is set and the check
-    /// starts on or after that instant. A nil cursor means no missed check counts.
+    /// An unreviewed `missed` check counts when it sits in the Since last sync window.
+    /// A child who has never synced has no missed checks in that window.
     ///
     /// Reviewed recordings never count. `noChange` and `notAnalyzed` never count.
     /// The child stays in Needs attention while any recording still matches this rule.
-    /// `ClinicSyncMerge` does not move `lastSyncDate`; advancing that cursor past a
-    /// missed day drops the day from this rule even if it is still unreviewed.
+    /// `ClinicSyncMerge` does not move `lastSyncDate`. A missed check from an earlier
+    /// sync drops out of this rule once a later sync moves the window past it.
     static func recordingNeedsAttention(
         _ recording: ClinicAttentionRecording,
-        lastSyncDate: Date?
+        lastSyncDate: Date?,
+        latestSyncLowerBound: Date? = nil,
+        hasLatestSyncBound: Bool = false
     ) -> Bool {
         guard !recording.reviewed else { return false }
         switch recording.parentStatus {
         case .changeDetected, .urgent, .unsure:
             return true
         case .missed:
-            guard let lastSyncDate else { return false }
-            return recording.startDate >= lastSyncDate
+            return ClinicSyncWindow(
+                lastSyncDate: lastSyncDate,
+                latestSyncLowerBound: latestSyncLowerBound,
+                hasLatestSyncBound: hasLatestSyncBound
+            ).sinceLastSyncFilter().contains(recording.startDate)
         case .noChange, .notAnalyzed:
             return false
         }
     }
 
     static func needsAttention(_ child: ClinicChildSummary) -> Bool {
-        child.recordings.contains { recordingNeedsAttention($0, lastSyncDate: child.lastSyncDate) }
+        child.recordings.contains { recordingNeedsAttention($0, child: child) }
+    }
+
+    static func recordingNeedsAttention(
+        _ recording: ClinicAttentionRecording,
+        child: ClinicChildSummary
+    ) -> Bool {
+        recordingNeedsAttention(
+            recording,
+            lastSyncDate: child.lastSyncDate,
+            latestSyncLowerBound: child.latestSyncLowerBound,
+            hasLatestSyncBound: child.hasLatestSyncBound
+        )
     }
 
     static func inSection(_ child: ClinicChildSummary, _ section: ClinicSidebarSection) -> Bool {
@@ -206,7 +262,7 @@ nonisolated enum ClinicListLogic {
 
     static func listStatus(for child: ClinicChildSummary) -> ClinicListStatus {
         let flagged = child.recordings
-            .filter { recordingNeedsAttention($0, lastSyncDate: child.lastSyncDate) }
+            .filter { recordingNeedsAttention($0, child: child) }
             .sorted { lhs, rhs in
                 if lhs.parentStatus.attentionRank != rhs.parentStatus.attentionRank {
                     return lhs.parentStatus.attentionRank < rhs.parentStatus.attentionRank
@@ -244,7 +300,7 @@ nonisolated enum ClinicListLogic {
             badges.append(ClinicListStatus(title: "Change detected", tone: .amber))
         }
         let missed = recordings.filter {
-            $0.parentStatus == .missed && recordingNeedsAttention($0, lastSyncDate: child.lastSyncDate)
+            $0.parentStatus == .missed && recordingNeedsAttention($0, child: child)
         }.count
         if missed > 0 {
             badges.append(ClinicListStatus(title: missed == 1 ? "1 missed" : "\(missed) missed", tone: .neutral))

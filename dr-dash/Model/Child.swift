@@ -13,6 +13,10 @@ final class Child {
     var setupNotes: String
     var linkStateRaw: String
     var lastSyncDate: Date?
+    /// Exclusive start of Since last sync after a live sync. Nil with `hasLatestSyncBound` means the whole history.
+    var latestSyncLowerBound: Date?
+    /// True after a live sync has recorded its window. Demo children leave this false.
+    var hasLatestSyncBound: Bool = false
     /// Mirrors `linkState == .linked`. Prefer `setLinkState` so the two stay together.
     var phoneLinked: Bool
 
@@ -38,6 +42,8 @@ final class Child {
         setupNotes: String = "",
         linkState: LinkState = .notLinked,
         lastSyncDate: Date? = nil,
+        latestSyncLowerBound: Date? = nil,
+        hasLatestSyncBound: Bool = false,
         phoneLinked: Bool? = nil
     ) {
         self.id = id
@@ -49,6 +55,8 @@ final class Child {
         self.setupNotes = setupNotes
         self.linkStateRaw = linkState.rawValue
         self.lastSyncDate = lastSyncDate
+        self.latestSyncLowerBound = latestSyncLowerBound
+        self.hasLatestSyncBound = hasLatestSyncBound
         self.phoneLinked = phoneLinked ?? (linkState == .linked)
         self.baselines = []
         self.recordings = []
@@ -91,6 +99,8 @@ final class Child {
             birthDate: birthDate,
             conditionText: conditionText,
             lastSyncDate: lastSyncDate,
+            latestSyncLowerBound: latestSyncLowerBound,
+            hasLatestSyncBound: hasLatestSyncBound,
             phoneLinked: phoneLinked,
             recordings: recordings.map(\.attentionRecording)
         )
@@ -109,6 +119,8 @@ final class Child {
         schedule: Schedule = Schedule(),
         linkState: LinkState = .notLinked,
         lastSyncDate: Date? = nil,
+        latestSyncLowerBound: Date? = nil,
+        hasLatestSyncBound: Bool = false,
         phoneLinked: Bool? = nil
     ) -> Child {
         let child = Child(
@@ -121,6 +133,8 @@ final class Child {
             setupNotes: setupNotes,
             linkState: linkState,
             lastSyncDate: lastSyncDate,
+            latestSyncLowerBound: latestSyncLowerBound,
+            hasLatestSyncBound: hasLatestSyncBound,
             phoneLinked: phoneLinked
         )
         context.insert(child)

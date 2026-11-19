@@ -93,6 +93,8 @@ final class ClinicLibrary {
             if kind == .demo {
                 DemoClinic.seedIfNeeded(in: container.mainContext)
                 UserDefaults.standard.set(demoRevision, forKey: demoRevisionKey())
+            } else {
+                ClinicSyncWindow.revealStoredBatches(in: container.mainContext)
             }
             return container
         } catch {
@@ -130,5 +132,29 @@ final class ClinicLibrary {
         let cleaned = raw.filter { $0.isLetter || $0.isNumber || $0 == "-" || $0 == "_" }
         guard !cleaned.isEmpty else { return "Clinic" }
         return "Clinic-\(cleaned)"
+    }
+}
+
+extension ClinicSyncWindow {
+    /// A child synced before this window existed has `lastSyncDate` on the newest event.
+    /// Reveal that whole batch. Demo children keep their morning cursor because it is earlier.
+    @MainActor
+    static func revealStoredBatches(in context: ModelContext) {
+        let children = (try? context.fetch(FetchDescriptor<Child>())) ?? []
+        var changed = false
+        for child in children {
+            let newest = (child.recordings.map(\.startDate) + child.diaryEvents.map(\.startedAt)).max()
+            guard revealsWholeHistory(
+                lastSyncDate: child.lastSyncDate,
+                newestEvent: newest,
+                hasLatestSyncBound: child.hasLatestSyncBound
+            ) else { continue }
+            child.hasLatestSyncBound = true
+            child.latestSyncLowerBound = nil
+            changed = true
+        }
+        if changed {
+            try? context.save()
+        }
     }
 }

@@ -238,7 +238,7 @@ nonisolated enum ChildDetailLogic {
     static let vestNote = "Recordings come from a 5-electrode vest and are not a standard 12-lead ECG."
 
     /// Matches nothing. Used when Since last sync is selected and the child has never synced.
-    static let unsynced = ClinicDateFilter(start: .distantFuture, end: nil)
+    static let unsynced = ClinicDateFilter.unsynced
 
     private static let dash = "—"
     private static let dayCap = 400
@@ -274,12 +274,14 @@ nonisolated enum ChildDetailLogic {
     }
 
     /// Inclusive window. A selected day wins over the range menu.
-    /// Since last sync starts at `lastSyncDate`, the same instant `ClinicListLogic` uses for missed checks.
-    /// A nil sync date matches nothing: nothing is dated after a sync that has not happened.
+    /// Since last sync uses `ClinicSyncWindow`: the whole latest live sync, or `lastSyncDate` for demo children.
+    /// A child who has never synced matches nothing.
     static func dateFilter(
         range: ChildTimelineRange,
         day: Date?,
         lastSyncDate: Date?,
+        latestSyncLowerBound: Date? = nil,
+        hasLatestSyncBound: Bool = false,
         now: Date = .now,
         calendar: Calendar = .current
     ) -> ClinicDateFilter {
@@ -288,8 +290,11 @@ nonisolated enum ChildDetailLogic {
         }
         switch range {
         case .sinceLastSync:
-            guard let lastSyncDate else { return unsynced }
-            return ClinicDateFilter(start: lastSyncDate, end: nil)
+            return ClinicSyncWindow(
+                lastSyncDate: lastSyncDate,
+                latestSyncLowerBound: latestSyncLowerBound,
+                hasLatestSyncBound: hasLatestSyncBound
+            ).sinceLastSyncFilter()
         case .all:
             return .all
         case .last7Days:

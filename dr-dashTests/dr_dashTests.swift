@@ -412,6 +412,119 @@ struct ClinicReceiptTests {
     }
 }
 
+@MainActor
+struct ClinicSyncWindowTests {
+    @Test func theFirstSyncShowsTheWholeBatch() {
+        let ecg = date(2026, 11, 18, 19, 0)
+        let journal = date(2026, 11, 18, 19, 10)
+        let symptom = date(2026, 11, 18, 19, 25)
+        let filter = sinceLastSync(lastSyncDate: symptom, hasLatestSyncBound: true)
+        #expect(filter.contains(ecg))
+        #expect(filter.contains(journal))
+        #expect(filter.contains(symptom))
+    }
+
+    @Test func theNextSyncShowsOnlyTheNewerItem() {
+        let symptom = date(2026, 11, 18, 19, 25)
+        let later = date(2026, 11, 19, 8, 0)
+        let filter = sinceLastSync(
+            lastSyncDate: later,
+            latestSyncLowerBound: symptom,
+            hasLatestSyncBound: true
+        )
+        #expect(!filter.contains(date(2026, 11, 18, 19, 0)))
+        #expect(!filter.contains(symptom))
+        #expect(filter.contains(later))
+    }
+
+    @Test func aDemoMorningCursorHidesTheEarlierRecording() {
+        let morning = date(2026, 11, 9, 8, 0)
+        let filter = sinceLastSync(lastSyncDate: morning)
+        #expect(!filter.contains(date(2026, 11, 7, 18, 0)))
+        #expect(filter.contains(date(2026, 11, 9, 18, 0)))
+        #expect(!ClinicSyncWindow.revealsWholeHistory(
+            lastSyncDate: morning,
+            newestEvent: date(2026, 11, 9, 18, 0),
+            hasLatestSyncBound: false
+        ))
+    }
+
+    @Test func aMissedCheckEarlierInTheBatchStillNeedsAttention() {
+        let missed = ClinicAttentionRecording(
+            id: UUID(),
+            startDate: date(2026, 11, 18, 8, 0),
+            parentStatus: .missed,
+            reviewed: false
+        )
+        #expect(ClinicListLogic.recordingNeedsAttention(
+            missed,
+            lastSyncDate: date(2026, 11, 18, 19, 25),
+            hasLatestSyncBound: true
+        ))
+        let beforeDemoCursor = ClinicAttentionRecording(
+            id: UUID(),
+            startDate: date(2026, 11, 7, 18, 0),
+            parentStatus: .missed,
+            reviewed: false
+        )
+        #expect(!ClinicListLogic.recordingNeedsAttention(
+            beforeDemoCursor,
+            lastSyncDate: date(2026, 11, 9, 8, 0)
+        ))
+    }
+
+    @Test func aStoredCoveredEndRevealsTheEarlierRecording() {
+        let library = ClinicLibrary(showsDemoClinic: false, inMemory: true)
+        let context = library.container.mainContext
+        let ecg = date(2026, 11, 18, 19, 0)
+        let symptom = date(2026, 11, 18, 19, 25)
+        let child = Child.add(
+            to: context,
+            fullName: "Amina Yusuf",
+            birthDate: date(2019, 2, 4),
+            sex: .female,
+            lastSyncDate: symptom
+        )
+        ClinicRecording.add(
+            to: child,
+            startDate: ecg,
+            duration: 30,
+            parentStatus: .noChange
+        )
+        DiaryEvent.add(
+            to: child,
+            kind: .symptom,
+            startedAt: symptom,
+            text: "Palpitations",
+            symptomName: "Palpitations"
+        )
+        ClinicSyncWindow.revealStoredBatches(in: context)
+        #expect(child.hasLatestSyncBound)
+        #expect(child.latestSyncLowerBound == nil)
+        let filter = sinceLastSync(
+            lastSyncDate: child.lastSyncDate,
+            latestSyncLowerBound: child.latestSyncLowerBound,
+            hasLatestSyncBound: child.hasLatestSyncBound
+        )
+        #expect(filter.contains(ecg))
+        #expect(filter.contains(symptom))
+    }
+
+    private func sinceLastSync(
+        lastSyncDate: Date?,
+        latestSyncLowerBound: Date? = nil,
+        hasLatestSyncBound: Bool = false
+    ) -> ClinicDateFilter {
+        ChildDetailLogic.dateFilter(
+            range: .sinceLastSync,
+            day: nil,
+            lastSyncDate: lastSyncDate,
+            latestSyncLowerBound: latestSyncLowerBound,
+            hasLatestSyncBound: hasLatestSyncBound
+        )
+    }
+}
+
 private func date(
     _ year: Int,
     _ month: Int,
