@@ -1,3 +1,4 @@
+import AppKit
 import SwiftUI
 
 struct BaselineFileSummary: Equatable {
@@ -11,7 +12,9 @@ struct ChildDetailsForm: View {
     var body: some View {
         Section {
             TextField("Full name", text: $details.fullName)
-            TextField("Nickname", text: nicknameBinding)
+            LabeledContent("Nickname") {
+                LimitedNicknameField(text: $details.nickname)
+            }
             DatePicker(
                 "Date of birth",
                 selection: birthDateBinding,
@@ -30,18 +33,6 @@ struct ChildDetailsForm: View {
         }
     }
 
-    private var nicknameBinding: Binding<String> {
-        Binding(
-            get: { details.nickname },
-            set: { proposed in
-                details.nickname = PatientDetailsDraft.limitedNickname(
-                    current: details.nickname,
-                    proposed: proposed
-                )
-            }
-        )
-    }
-
     private var birthDateBinding: Binding<Date> {
         Binding(
             get: { details.birthDate ?? suggestedBirth },
@@ -58,6 +49,94 @@ struct ChildDetailsForm: View {
     private var suggestedBirth: Date {
         let shifted = Calendar.current.date(byAdding: .year, value: -8, to: .now) ?? .now
         return Calendar.current.startOfDay(for: shifted)
+    }
+}
+
+/// Nickname editor that refuses a 13th character before it appears.
+/// The system text field only publishes its text when editing ends, so the limit lives on this field.
+private struct LimitedNicknameField: NSViewRepresentable {
+    @Binding var text: String
+
+    func makeNSView(context: Context) -> NSTextField {
+        let field = NSTextField(string: text)
+        field.delegate = context.coordinator
+        field.formatter = context.coordinator.formatter
+        field.isBordered = false
+        field.isBezeled = false
+        field.drawsBackground = false
+        field.focusRingType = .default
+        field.font = .preferredFont(forTextStyle: .body)
+        field.textColor = .labelColor
+        field.maximumNumberOfLines = 1
+        field.lineBreakMode = .byClipping
+        field.cell?.wraps = false
+        field.cell?.isScrollable = true
+        field.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        field.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        field.setAccessibilityLabel("Nickname")
+        return field
+    }
+
+    func updateNSView(_ field: NSTextField, context: Context) {
+        context.coordinator.text = $text
+        if field.formatter !== context.coordinator.formatter {
+            field.formatter = context.coordinator.formatter
+        }
+        guard field.currentEditor() == nil, field.stringValue != text else { return }
+        field.stringValue = text
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(text: $text)
+    }
+
+    final class Coordinator: NSObject, NSTextFieldDelegate {
+        var text: Binding<String>
+        let formatter = NicknameLengthFormatter()
+
+        init(text: Binding<String>) {
+            self.text = text
+        }
+
+        func controlTextDidChange(_ notification: Notification) {
+            guard let field = notification.object as? NSTextField else { return }
+            let shown = (field.currentEditor() as? NSTextView)?.string ?? field.stringValue
+            guard text.wrappedValue != shown else { return }
+            text.wrappedValue = shown
+        }
+    }
+}
+
+/// Rejects a nickname edit that would grow past 12 characters before the character appears.
+private final class NicknameLengthFormatter: Formatter {
+    override func string(for obj: Any?) -> String? {
+        obj as? String
+    }
+
+    override func getObjectValue(
+        _ obj: AutoreleasingUnsafeMutablePointer<AnyObject?>?,
+        for string: String,
+        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
+    ) -> Bool {
+        obj?.pointee = string as NSString
+        return true
+    }
+
+    override func isPartialStringValid(
+        _ partialStringPtr: AutoreleasingUnsafeMutablePointer<NSString>,
+        proposedSelectedRange proposedSelRangePtr: NSRangePointer?,
+        originalString origString: String,
+        originalSelectedRange origSelRange: NSRange,
+        errorDescription error: AutoreleasingUnsafeMutablePointer<NSString?>?
+    ) -> Bool {
+        let proposed = partialStringPtr.pointee as String
+        let limited = PatientDetailsDraft.limitedNickname(current: origString, proposed: proposed)
+        if limited == proposed { return true }
+        if limited != origString {
+            partialStringPtr.pointee = limited as NSString
+            proposedSelRangePtr?.pointee = NSRange(location: (limited as NSString).length, length: 0)
+        }
+        return false
     }
 }
 

@@ -16,8 +16,8 @@ struct PatientDetailsDraft {
         fullName.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
-    /// Keeps a nickname from growing past 12 characters.
-    /// A value already longer than that stays until the doctor shortens it.
+    /// Decides what a nickname field may show. A 13th character is refused.
+    /// A value already longer than 12 stays until the doctor shortens it.
     static func limitedNickname(current: String, proposed: String) -> String {
         if proposed.count <= nicknameLimit {
             return proposed

@@ -32,11 +32,13 @@ struct ChildDetailView: View {
                         Button("Link phone") { showsLink = true }
                             .buttonStyle(.glass)
                     }
+                    ToolbarSpacer(.fixed)
                     ToolbarItem {
                         Button("Sync phone") { showsSync = true }
                             .buttonStyle(.glass)
                     }
                     if showsReviewButton {
+                        ToolbarSpacer(.fixed)
                         ToolbarItem {
                             Button("Mark as reviewed") {
                                 ClinicReview.markReviewed(Array(child.recordings), in: activeFilter)
