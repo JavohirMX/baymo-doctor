@@ -63,6 +63,7 @@ nonisolated enum ClinicWireType: String, Codable, Equatable, Sendable {
     case diary
     case complete
     case cancel
+    case receipt
     case chunk
 }
 
@@ -169,6 +170,10 @@ nonisolated struct ClinicWireMessage: Codable, Equatable, Sendable {
     static func cancel() -> ClinicWireMessage {
         ClinicWireMessage(type: .cancel)
     }
+
+    static func receipt() -> ClinicWireMessage {
+        ClinicWireMessage(type: .receipt)
+    }
 }
 
 nonisolated enum ClinicIncoming: Sendable {
@@ -180,6 +185,7 @@ nonisolated enum ClinicIncoming: Sendable {
     case diary(ClinicDiaryPayload, index: Int, count: Int)
     case complete
     case cancel
+    case receipt
 
     static func make(_ message: ClinicWireMessage) throws -> ClinicIncoming {
         switch message.type {
@@ -222,9 +228,41 @@ nonisolated enum ClinicIncoming: Sendable {
             return .complete
         case .cancel:
             return .cancel
+        case .receipt:
+            return .receipt
         case .chunk:
             throw ClinicWireError.badChunk
         }
+    }
+}
+
+/// A side commits only after the other side has confirmed the transfer.
+/// Queuing `complete` is not confirmation. A cancel or a drop leaves the commit undone.
+nonisolated struct ClinicTransferCommit: Equatable, Sendable {
+    private(set) var awaitingReceipt = false
+    private(set) var committed = false
+
+    mutating func noteLocalComplete() {
+        guard !committed else { return }
+        awaitingReceipt = true
+    }
+
+    /// True only the first time a receipt arrives after the local complete.
+    mutating func noteReceipt() -> Bool {
+        guard awaitingReceipt, !committed else { return false }
+        committed = true
+        awaitingReceipt = false
+        return true
+    }
+
+    mutating func noteCancelledOrDropped() {
+        guard !committed else { return }
+        awaitingReceipt = false
+    }
+
+    /// The Mac moves `lastSyncDate` only when `complete` covered the manifest and the session had not already dropped.
+    static func mayAdvanceLastSync(completeCoversManifest: Bool, droppedBeforeComplete: Bool) -> Bool {
+        completeCoversManifest && !droppedBeforeComplete
     }
 }
 
