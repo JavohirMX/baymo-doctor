@@ -10,8 +10,25 @@ struct PatientDetailsDraft {
     var conditionText = ""
     var setupNotes = ""
 
+    static let nicknameLimit = 12
+
     var trimmedName: String {
         fullName.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+
+    /// Keeps a nickname from growing past 12 characters.
+    /// A value already longer than that stays until the doctor shortens it.
+    static func limitedNickname(current: String, proposed: String) -> String {
+        if proposed.count <= nicknameLimit {
+            return proposed
+        }
+        if current.count > nicknameLimit, proposed.count < current.count {
+            return proposed
+        }
+        if current.count <= nicknameLimit {
+            return String(proposed.prefix(nicknameLimit))
+        }
+        return current
     }
 
     var canContinue: Bool {
@@ -56,7 +73,6 @@ struct ScheduleDraft {
     var weekdays: Set<Int> = []
     var durationMinutes = Schedule.defaultDurationMinutes
     var reminder = ScheduleDraft.defaultReminder
-    var recordWhenSymptoms = false
 
     var isComplete: Bool {
         frequency != .specificWeekdays || !weekdays.isEmpty
@@ -83,7 +99,6 @@ struct ScheduleDraft {
             hour: schedule?.reminderHour ?? Schedule.defaultReminderHour,
             minute: schedule?.reminderMinute ?? Schedule.defaultReminderMinute
         )
-        recordWhenSymptoms = schedule?.recordWhenSymptoms ?? false
     }
 
     var cadence: ScheduleCadence {
@@ -106,7 +121,7 @@ struct ScheduleDraft {
             durationMinutes: durationMinutes,
             reminderHour: parts.hour ?? Schedule.defaultReminderHour,
             reminderMinute: parts.minute ?? Schedule.defaultReminderMinute,
-            recordWhenSymptoms: recordWhenSymptoms
+            recordWhenSymptoms: true
         )
         schedule.apply(ClinicSchedulePayload(schedule: source))
     }

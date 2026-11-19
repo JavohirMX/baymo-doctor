@@ -7,6 +7,39 @@ import Testing
 
 @MainActor
 struct ClinicLogicTests {
+    @Test func nicknameStopsGrowingPastTwelveCharacters() {
+        #expect(PatientDetailsDraft.limitedNickname(current: "", proposed: "1234567890123") == "123456789012")
+        #expect(PatientDetailsDraft.limitedNickname(current: "123456789012", proposed: "123456789012x") == "123456789012")
+        #expect(PatientDetailsDraft.limitedNickname(current: "Ada", proposed: "Ada") == "Ada")
+        let legacy = "123456789012345"
+        #expect(PatientDetailsDraft.limitedNickname(current: legacy, proposed: legacy) == legacy)
+        #expect(PatientDetailsDraft.limitedNickname(current: legacy, proposed: String(legacy.dropLast())) == String(legacy.dropLast()))
+        #expect(PatientDetailsDraft.limitedNickname(current: legacy, proposed: legacy + "x") == legacy)
+    }
+
+    @Test func symptomRecordingStaysOnInTheScheduleSummary() {
+        let schedule = ChildScheduleFact(
+            cadence: .everyDay,
+            timesPerWeek: 1,
+            weekdays: [],
+            durationMinutes: 5,
+            reminderHour: 8,
+            reminderMinute: 0,
+            recordWhenSymptoms: false
+        )
+        #expect(ChildDetailLogic.scheduleSummary(schedule).contains("Also when symptoms"))
+    }
+
+    @Test func savedScheduleAlwaysRecordsWhenSymptomsHappen() {
+        let stored = Schedule(recordWhenSymptoms: false)
+        var incoming = ClinicSchedulePayload(schedule: nil)
+        incoming.recordWhenSymptoms = false
+        stored.apply(incoming)
+        #expect(stored.recordWhenSymptoms)
+        #expect(ClinicSchedulePayload(schedule: Schedule(recordWhenSymptoms: false)).recordWhenSymptoms)
+        #expect(ClinicSchedulePayload(schedule: nil).recordWhenSymptoms)
+    }
+
     @Test func ageCountsCompletedYears() {
         var calendar = Calendar(identifier: .gregorian)
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!

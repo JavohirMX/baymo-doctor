@@ -11,7 +11,7 @@ struct ChildDetailsForm: View {
     var body: some View {
         Section {
             TextField("Full name", text: $details.fullName)
-            TextField("Nickname", text: $details.nickname)
+            TextField("Nickname", text: nicknameBinding)
             DatePicker(
                 "Date of birth",
                 selection: birthDateBinding,
@@ -28,6 +28,18 @@ struct ChildDetailsForm: View {
             TextField("Setup notes", text: $details.setupNotes, axis: .vertical)
                 .lineLimit(3...6)
         }
+    }
+
+    private var nicknameBinding: Binding<String> {
+        Binding(
+            get: { details.nickname },
+            set: { proposed in
+                details.nickname = PatientDetailsDraft.limitedNickname(
+                    current: details.nickname,
+                    proposed: proposed
+                )
+            }
+        )
     }
 
     private var birthDateBinding: Binding<Date> {
@@ -126,7 +138,6 @@ struct ScheduleForm: View {
             .accessibilityValue("\(draft.durationMinutes) minutes")
             DatePicker("Reminder", selection: $draft.reminder, displayedComponents: .hourAndMinute)
                 .datePickerStyle(.stepperField)
-            Toggle("Record when symptoms happen", isOn: $draft.recordWhenSymptoms)
         }
     }
 

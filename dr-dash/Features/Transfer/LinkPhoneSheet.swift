@@ -66,6 +66,11 @@ struct LinkPhoneSheet: View {
             Text("The phone connects directly to this Mac. Nothing is sent online.")
                 .foregroundStyle(ClinicPalette.secondaryText)
                 .fixedSize(horizontal: false, vertical: true)
+            if child.linkState == .linked {
+                Text("A new code pairs the phone again after a reset or onboarding. This clinic record is kept either way.")
+                    .foregroundStyle(ClinicPalette.secondaryText)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
             banners
             HStack {
                 Spacer()

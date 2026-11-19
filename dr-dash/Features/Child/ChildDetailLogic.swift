@@ -326,9 +326,7 @@ nonisolated enum ChildDetailLogic {
             "\(schedule.durationMinutes) min",
             "Reminder \(reminderText(hour: schedule.reminderHour, minute: schedule.reminderMinute, calendar: calendar))",
         ]
-        if schedule.recordWhenSymptoms {
-            parts.append("Also when symptoms")
-        }
+        parts.append("Also when symptoms")
         return parts.joined(separator: " · ")
     }
 

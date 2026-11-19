@@ -28,11 +28,9 @@ struct ChildDetailView: View {
                         .accessibilityLabel(backTitle)
                     }
                     ToolbarSpacer(.flexible)
-                    if child.linkState != .linked {
-                        ToolbarItem {
-                            Button("Link phone") { showsLink = true }
-                                .buttonStyle(.glass)
-                        }
+                    ToolbarItem {
+                        Button("Link phone") { showsLink = true }
+                            .buttonStyle(.glass)
                     }
                     ToolbarItem {
                         Button("Sync phone") { showsSync = true }
@@ -62,6 +60,9 @@ struct ChildDetailView: View {
                 }
                 .task(id: child.currentBaseline?.id) {
                     await measureBaseline()
+                }
+                .task(id: child.id) {
+                    enableSymptomRecording()
                 }
         }
         .sheet(isPresented: $showsEdit) {
@@ -319,6 +320,13 @@ struct ChildDetailView: View {
             latestSyncLowerBound: child.latestSyncLowerBound,
             hasLatestSyncBound: child.hasLatestSyncBound
         )
+    }
+
+    /// Recording when symptoms happen is part of every schedule, including ones saved before that was required.
+    private func enableSymptomRecording() {
+        guard let schedule = child.schedule, !schedule.recordWhenSymptoms else { return }
+        schedule.recordWhenSymptoms = true
+        try? child.modelContext?.save()
     }
 
     private var scheduleFact: ChildScheduleFact? {

@@ -283,7 +283,7 @@ Profile, the current baseline, and the schedule. Older baselines stay on the Mac
 | durationMinutes | number | 1 through 15. |
 | reminderHour | number | 0 through 23. |
 | reminderMinute | number | 0 through 59. |
-| recordWhenSymptoms | bool | |
+| recordWhenSymptoms | bool | The doctor app always sends true. Recording when symptoms happen is part of every schedule. |
 
 `cadence.kind` is `everyDay`, `specificWeekdays`, or `timesPerWeek`. `timesPerWeek` also includes `timesPerWeek` as a number of at least 1.
 

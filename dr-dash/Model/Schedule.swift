@@ -27,7 +27,7 @@ final class Schedule {
         durationMinutes: Int = Schedule.defaultDurationMinutes,
         reminderHour: Int = Schedule.defaultReminderHour,
         reminderMinute: Int = Schedule.defaultReminderMinute,
-        recordWhenSymptoms: Bool = false
+        recordWhenSymptoms: Bool = true
     ) {
         switch cadence {
         case .everyDay:
@@ -97,7 +97,8 @@ final class Schedule {
         durationMinutes = payload.durationMinutes
         reminderHour = payload.reminderHour
         reminderMinute = payload.reminderMinute
-        recordWhenSymptoms = payload.recordWhenSymptoms
+        // Every plan includes a recording when symptoms happen, including older files that stored false.
+        recordWhenSymptoms = true
         normalize()
     }
 

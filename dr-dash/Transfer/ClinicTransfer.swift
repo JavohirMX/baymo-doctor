@@ -197,7 +197,8 @@ nonisolated struct ClinicSchedulePayload: Codable, Equatable, Sendable {
         durationMinutes = schedule?.durationMinutes ?? Schedule.defaultDurationMinutes
         reminderHour = schedule?.reminderHour ?? Schedule.defaultReminderHour
         reminderMinute = schedule?.reminderMinute ?? Schedule.defaultReminderMinute
-        recordWhenSymptoms = schedule?.recordWhenSymptoms ?? false
+        // The doctor app always sends this on. The stored schedule flag is not consulted.
+        recordWhenSymptoms = true
     }
 }
 
